@@ -1,0 +1,118 @@
+.btn {
+    border-radius: $border-radius;
+    color: $light-text-color;
+    height: 2.5rem;
+    padding: 0 1.5rem;
+    font-size: $small-font-size;
+    font-weight: bold;
+    display: inline;
+    align-items: center;
+    font-family: "Poppins";
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ffffff;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+}
+
+.btn-primary {
+    border-color: $light-shadow-color;
+    color: $primary-text-color;
+    background-color: $primary-color;
+    font-weight: 700;
+    box-shadow: 6px 6px 10px $dark-shadow-color, -6px -6px 10px $light-shadow-color;
+    &:hover {
+        box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
+    }
+}
+.btn-secondary {
+    background-color: $btn-secondary-color;
+    transition: 200ms ease;
+    &:hover {
+        background-color: $btn-secondary-color-hover;
+    }
+}
+.btn-tertiary {
+    background-color: $btn-tertiary-color;
+    color: $btn-tertiary-text-color;
+    transition: 200ms ease;
+    &:hover {
+        color: $text-color;
+    }
+}
+.btn-dark {
+    color: $light-dark-color;
+    background-color: $dark-bg;
+    box-shadow: 3px 3px 3px $dark-shadow-color, -3px -3px 3px $light-shadow-color;
+    &:hover {
+        color: $light-text-color;
+        box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
+    }
+}
+.btn-large {
+    padding: 0.8rem 2rem;
+}
+
+.btn-icon {
+    padding-right: 0.3rem;
+    font-size: 15px;
+}
+
+.btn-only-icon {
+    padding: 21px 0 21px 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 100%;
+    width: 3rem;
+    background-color: $dark-bg;
+    border-color: #444;
+    transition: 200ms;
+    font-size: 15px;
+    color: $light-dark-color;
+    box-shadow: none;
+    &:hover {
+        color: $light-text-color;
+    }
+}
+
+.btn-group {
+    display: inline-flex;
+}
+
+.r-l {
+    border-radius: $border-radius 0 0 $border-radius;
+}
+.r-r {
+    border-radius: 0 $border-radius $border-radius 0;
+}
+.m {
+    border-radius: 0;
+}
+
+.suf {
+    background-color: $dark-bg;
+    height: 2.7rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $light-dark-color;
+    font-size: 13px;
+    box-shadow: none;
+    border-style: solid;
+    border-color: #444;
+    border-width: 1px;
+}
+
+.group {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+}
+#newProjectBtn {
+    width: 8rem;
+    cursor: pointer;
+}

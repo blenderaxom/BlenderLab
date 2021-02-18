@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>BlenderLab v0.1</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link href="../css/all.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="../prism/prism.css"> -->
+  <link rel="stylesheet" href="../../node_modules/highlight.js/styles/atom-one-dark-reasonable.css">
+</head>
+
+<body>
+  <topbar-topbar title-name="BlenderLab"></topbar-topbar>
+  <div class="tabbar">
+    <div class="tabbar-contents">
+      <a href="#" class="Home tabbar-main" id="default-tab">Home</a>
+    </div>
+  </div>
+  <div class="navbar">
+    <nav class="navbar-nav">
+      <div>
+        <div class="logo">
+          <div class="logo-container">
+            <img src="../images/Logo.png" alt="BlenderLab" class="logo-svg" />
+          </div>
+          <!-- <span class="brand-name">BlenderLab</span> -->
+        </div>
+        <div class="nav-list">
+          <a href="#" class="home nav-link" onclick="openPage(event, 'Home')" id="defaultOpen">
+            <i class="fas fa-home"></i>
+            <span class="link-text">Home</span>
+          </a>
+          <a href="#" class="projects nav-link" onclick="openPage(event, 'Projects')">
+            <i class="fas fa-folder-open"></i>
+            <span class="link-text">Projects</span>
+          </a>
+          <a href="#" class="learn nav-link" onclick="openPage(event, 'Learn')">
+            <i class="fas fa-book"></i>
+            <span class="link-text">Learn</span>
+          </a>
+          <a href="#" class="blog nav-link" onclick="openPage(event, 'Blog')">
+            <i class="fas fa-blog"></i>
+            <span class="link-text">Blog</span>
+          </a>
+          <a href="#" class="installs nav-link" onclick="openPage(event, 'Installs')">
+            <i class="fas fa-download"></i>
+            <span class="link-text">Installs</span>
+          </a>
+          <!-- <a href="#" class="hire nav-link" onclick="openPage(event, 'Hire')">
+            <i class="fas fa-user-check"></i>
+            <span class="link-text">Hire</span>
+          </a>
+          <a href="#" class="store nav-link" onclick="openPage(event, 'Market')">
+            <i class="fas fa-store"></i>
+            <span class="link-text">Market</span>
+          </a> -->
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="Home" class="tabcontent">
+    <p>All contents here!</p>
+    <button class="btn btn-primary" id="new-project-button">New Project</button>
+    <br>
+    <br>
+    <div class="card project-list-container">
+      <div class="card-header">
+        <h4>Recent Projects</h4>
+      </div>
+      <div class="card-body">
+        <div class="project-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="Projects" class="tabcontent">
+    <h3>Projects</h3>
+    <p>Find all your projects here</p>
+  </div>
+
+  <div id="Learn" class="tabcontent">
+    <h3>Learn</h3>
+    <p>Learn anything here</p>
+  </div>
+
+  <div id="Blog" class="tabcontent">
+    <h3>Blog</h3>
+    <p>Let's write some blog here!</p>
+  </div>
+
+  <div id="Installs" class="tabcontent">
+    <h3>Installs</h3>
+    <p>This is the Installs page</p>
+  </div>
+
+  <!-- <div id="Hire" class="tabcontent">
+    <h3>Hire me</h3>
+    <p>This is the hire me page.</p>
+  </div>
+
+  <div id="Market" class="tabcontent">
+    <h3>The Market</h3>
+    <p>This is a Market</p>
+  </div> -->
+
+  <script src="../../node_modules/highlight.js/lib/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  
+  <!-- Editor.js configs -->
+  <script src="../../node_modules/@editorjs/editorjs/dist/editor.js"></script>
+  <script src="../../node_modules/editorjs-parser/build/Parser.browser.js"></script>
+  <script src="../../node_modules/@editorjs/header/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/list/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/embed/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/raw/dist/bundle.js"></script>
+  <!-- <script src="../../node_modules/@bomdi/codebox/dist/index.min.js"></script> -->
+  <script src="../../node_modules/@editorjs/marker/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/inline-code/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/underline/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/table/dist/bundle.js"></script>
+  <script src="../../node_modules/@editorjs/code/dist/bundle.js"></script>
+  <script src="../../node_modules/editorjs-drag-drop/dist/bundle.js"></script>
+  <script src="../../node_modules/editorjs-undo/dist/bundle.js"></script>
+  <script src="../../node_modules/editorjs-paragraph-with-alignment/dist/bundle.js"></script>
+
+  <script src="../js/func.helpers.js"></script>
+  <script src="../js/index.js"></script>
+  <script src="../components/Topbar.js"></script>
+  <script src="../components/project-card.js"></script>
+  <script src="../components/tab-item.js"></script>
+  <script src="../components/project-page.js"></script>
+</body>
+
+</html>

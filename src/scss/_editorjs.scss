@@ -1,0 +1,87 @@
+// Custom styles
+
+.editor {
+    position: relative;
+    z-index: 10;
+    display: block;
+    max-width: 720px;
+    min-width: 500px;
+    margin: 10px 30px;
+    background-color: $dark-bg;
+    color: $light-text-color;
+    box-shadow: 5px 5px 9px $dark-shadow-color, -5px -5px 9px $light-shadow-color;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+// New Project description editor area 
+.editor-area {
+    cursor: text;
+    color: $light-text-color;
+    border-radius: 10px;
+    padding: 3px 20px;
+    margin-bottom: 15px;
+    height: 120px;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: inset 3px 3px 8px $dark-shadow-color, inset -3px -3px 8px $light-shadow-color;
+    &::-webkit-scrollbar {
+        background: $dark-shadow-color;
+        border-radius: 10px;
+        width: 6px;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: grey;
+        border-radius: 10px;
+    }
+}
+.ce-inline-tool-input,
+.ce-inline-toolbar__dropdown,
+.ce-conversion-toolbar__label, 
+.ce-conversion-tool {
+    color: black;
+}
+.ce-block a {
+    color: lightblue;
+}
+.ce-block--selected .ce-block__content {
+    background: #282C34;
+}
+.ce-toolbox__button {
+    color: $dark-bg;
+    background: white;
+    &:hover {
+        background: rgba(230, 230, 230, 0.87);
+        color: black;
+    }
+}
+.cdx-marker {
+    background: rgb(255, 201, 120) !important;
+    border-radius: 4px !important;
+    padding: 0 3px !important;
+}
+.inline-code {
+    color: #ae2b1d !important;
+    border-radius: 4px !important;
+    padding: 0 3px !important;
+}
+.codex-editor__redactor{
+    padding-bottom: 10px !important;
+    margin: 0 !important;
+}
+.code-block {
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.2rem;
+    font-family: 'monaco', monospace;
+    &::-webkit-scrollbar {
+        background: none;
+        height: 6px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: $primary-color;
+    }
+}
+
+

@@ -1,0 +1,82 @@
+@import './variables'; //variables import 
+@import './sidebar'; //sidebar scss import
+@import './topbar'; //topbar scss import
+@import './buttons';
+@import './input';
+@import './cards';
+@import './project-card';
+@import './tabbar';
+@import './editorjs';
+@import './modal';
+
+@font-face {
+    font-family: 'Poppins';
+    /*a name to be used later*/
+    src: URL('../fonts/Poppins-Regular.ttf');
+    /*URL to font*/
+}
+@font-face {
+    font-family: 'monaco';
+    src: URL('../fonts/monaco.ttf');
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+@mixin marpadZero {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @include marpadZero();
+    font-weight: bolder;
+}
+
+ul {
+    @include marpadZero();
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+body {
+    top: 1rem;
+    background-color: $dark-bg;
+    color: $light-text-color;
+    transition: 200ms ease;
+    margin: 0;
+    padding: 5rem 2rem 0 8rem;
+    font-size: $normal-font-size;
+    font-family: $font-family;
+
+    &::-webkit-scrollbar {
+        background-color: $dark-bg;
+        width: 0.30rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $primary-color;
+    }
+}
+
+// span {
+//     display: block;
+// }
+
+.newProjectWindowBody {
+    background-color: $dark-bg;
+    padding: 0 2rem;
+    user-select: none;
+}

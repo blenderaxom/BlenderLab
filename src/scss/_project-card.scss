@@ -1,0 +1,58 @@
+.project-list-container {
+    width: 25rem;
+    padding-left: 0;
+    user-select: none;
+    box-shadow: 3px 3px 6px $dark-shadow-color, -3px -3px 6px $light-shadow-color;
+    .card-header  {
+        padding-left: 13px;
+        h4 {
+            width: fit-content;
+            padding: 5px 10px;
+            border-radius: $border-radius;
+            box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
+            font-size: 14px;
+        }
+    }
+    .card-body {
+        border-style: solid;
+        border: 5px;
+        border-color: rgba(153, 153, 153, 0.294);
+    }
+}
+
+p-c {
+    cursor: pointer;
+    
+}
+
+.pc{
+    overflow: hidden;
+    margin: 10px 10px 10px;
+    border-radius: 10px;
+    transition: 100ms ease;
+    padding: 10px 23px;
+    border: 0;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: rgba(153, 153, 153, 0.294);
+    // box-shadow: 3px 3px 6px #cbced1, -3px -3px 6px #ffffff;
+    &:hover {
+        
+        .name-label {
+            font-weight: bold;
+            color: $primary-color;
+        }
+        box-shadow: inset 3px 3px 6px $dark-shadow-color, inset -3px -3px 6px $light-shadow-color;
+    }
+}
+
+.name-label {
+    font-weight: bolder;
+    color: $light-text-color;
+    font-size: 14px;
+}
+.time-label {
+    font-size: 12px;
+    color: $light-dark-color;
+    font-weight: bold;
+}
