@@ -1,0 +1,78 @@
+/* Remove default bullets */
+ul {
+    list-style-type: none;
+    padding: unset;
+    text-overflow: ellipsis;
+}
+
+/* Style the caret/arrow */
+.caret {
+    cursor: pointer;
+    user-select: none;
+    /* Prevent text selection */
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+
+.caret::before {
+    content: "\276F";
+    margin-right: 10px;
+    color: $light-text-color;
+    display: inline-block;
+}
+.TreeView span{
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    &.caret{
+        text-align: center;
+        margin: unset;
+    }
+}
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+.caret-down::before {
+    transform: rotate(90deg);
+}
+.tree{
+    min-width: 200px;
+    max-width: 500px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.027);
+    margin: 10px;
+    border-radius: 10px;
+    height: fit-content;
+}
+.TreeView{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 200ms ease;
+    height: fit-content;
+    padding-left: 0.5rem;
+    font-size: 15px;
+    li {
+        i{
+            padding-right: 6px;
+        }
+        span{
+            i{
+                padding-right: 6px;
+            }
+            color: $light-text-color;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+ul .nested {
+    border-left: 1px solid grey;
+    display: none;
+    padding-left: 20px;
+    background-color: transparent;
+    &.active {
+        border-left: 1px solid grey;
+        box-shadow: none;
+        display: block;
+        color: $light-text-color;
+    }
+}

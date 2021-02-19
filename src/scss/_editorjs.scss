@@ -42,11 +42,18 @@
 .ce-conversion-tool {
     color: black;
 }
+.ce-block{
+    padding: 0 !important;
+    width: 100%;
+}
 .ce-block a {
     color: lightblue;
 }
 .ce-block--selected .ce-block__content {
     background: #282C34;
+}
+.ce-block__content {
+    max-width: unset;
 }
 .ce-toolbox__button {
     color: $dark-bg;
@@ -67,8 +74,9 @@
     padding: 0 3px !important;
 }
 .codex-editor__redactor{
-    padding-bottom: 10px !important;
+    padding: 10px 0 !important;
     margin: 0 !important;
+    width: 100%;
 }
 .code-block {
     border-radius: 6px;
