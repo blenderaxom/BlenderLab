@@ -105,9 +105,11 @@ class SideBar extends HTMLElement {
         const navi = this.shadowRoot.querySelector(".navbar")
 
         navi.addEventListener('mouseenter',()=>{
+            navi.style.backgroundColor = "transparent"
             document.querySelector("body").style.padding="2rem 1rem 0 14rem";
         })
         navi.addEventListener('mouseleave',()=>{
+            showSidebar()
             document.querySelector("body").style.padding="2rem 2rem 0 6.75rem";
         })
 

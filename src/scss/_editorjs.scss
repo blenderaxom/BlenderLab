@@ -25,16 +25,7 @@
     overflow-x: auto;
     overflow-y: auto;
     box-shadow: inset 3px 3px 8px $dark-shadow-color, inset -3px -3px 8px $light-shadow-color;
-    &::-webkit-scrollbar {
-        background: $dark-shadow-color;
-        border-radius: 10px;
-        width: 6px;
-        height: 6px;
-    }
-    &::-webkit-scrollbar-thumb{
-        background-color: grey;
-        border-radius: 10px;
-    }
+    @include webkit();
 }
 .ce-inline-tool-input,
 .ce-inline-toolbar__dropdown,
@@ -83,13 +74,7 @@
     font-size: 14px;
     line-height: 1.2rem;
     font-family: 'monaco', monospace;
-    &::-webkit-scrollbar {
-        background: none;
-        height: 6px;
-    }
-    &::-webkit-scrollbar-thumb{
-        background-color: $primary-color;
-    }
+    @include webkit();
 }
 
 

@@ -42,20 +42,13 @@ contextBridge.exposeInMainWorld('BL', {
         writeProjectData([location, title, description])
     },
     loadDirTree: (args) => {
-        var parent = document.getElementById(args[1])
+        var element = document.getElementById(args[1])
+        var parent = element.shadowRoot.getElementById("parentItem")
         dirWalk(args[0], parent, function (err, results) {
             if (err) throw err;
             
-            var toggler = document.getElementsByClassName("caret");
-            var i;
-
-            for (i = 0; i < toggler.length; i++) {
-                toggler[i].addEventListener("click", function () {
-                    this.parentElement.querySelector(".nested").classList.toggle("active");
-                    this.classList.toggle("caret-down");
-                });
-                toggler[0].click()
-            }
+            const event = new Event('update-tree');
+            element.dispatchEvent(event);
         })
     }
 });

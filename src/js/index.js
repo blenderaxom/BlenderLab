@@ -89,13 +89,16 @@ mainTab.click()
 // Shows the sidebar
 function showSidebar() {
     if (mainTab.classList.contains("tab-active")) {
+        nav.style.backgroundColor = "transparent"
         nav.style.boxShadow = "5px 5px 10px #101010, -5px -5px 10px #3F3F3F "
     } else {
+        nav.style.backgroundColor = "rgba(255, 255, 255, 0.027)"
         nav.style.boxShadow = "none"
     }
 }
 // Move contents when expanding sidebar
 nav.addEventListener('mouseenter', () => {
+    nav.style.backgroundColor = "transparent"
     nav.style.boxShadow = "5px 5px 10px #101010, -5px -5px 10px #3F3F3F "
     document.querySelector("body").style.padding = "5rem 1rem 0 15.4rem";
 })

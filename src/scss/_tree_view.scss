@@ -34,23 +34,35 @@ ul {
     transform: rotate(90deg);
 }
 .tree{
-    min-width: 200px;
-    max-width: 500px;
+    width: 300px;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.027);
-    margin: 10px;
+    background-color: $bg-light;
+    margin: 10px 10px 10px 20px;
     border-radius: 10px;
     height: fit-content;
+    user-select: none;
+    transition: $transition;
+    &:hover{
+        background-color: $bg-light-hover;
+    }
 }
 .TreeView{
+    @include webkit();
     white-space: nowrap;
-    overflow: hidden;
+    overflow: auto;
     text-overflow: ellipsis;
-    transition: 200ms ease;
+    transition: $transition;
     height: fit-content;
     padding-left: 0.5rem;
+    padding-bottom: 10px;
     font-size: 15px;
     li {
+        cursor: pointer;
+        transition: $transition;
+        &:hover{
+            color: $primary-color;
+        }
+        
         i{
             padding-right: 6px;
         }
@@ -59,6 +71,9 @@ ul {
                 padding-right: 6px;
             }
             color: $light-text-color;
+            &:hover{
+                color: $primary-color;
+            }
             text-overflow: ellipsis;
         }
     }

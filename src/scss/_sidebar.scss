@@ -6,7 +6,7 @@
     position: fixed;
     background-color: $dark-bg;
     color: $light-text-color;
-    transition: width 200ms ease;
+    transition: width $transition;
     z-index: 2;
     box-shadow: 5px 5px 10px $dark-shadow-color, -5px -5px 10px $light-shadow-color;
     border-radius: 20px;
@@ -35,17 +35,12 @@
     overflow-y: hidden;
     overflow-x: hidden;
     justify-content:space-between;
-    transition: 200ms ease;
+    transition: $transition;
     padding-bottom: 3rem;
     &:hover {
         overflow-y: scroll;
     }
-    &::-webkit-scrollbar {
-        width: 0.25rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: $primary-color;
-    }
+    @include webkit();
 }
 
 .nav-link {
@@ -56,7 +51,7 @@
     color: $light-dark-color;
     text-decoration: none;
     border-radius: $border-radius;
-    transition: 60ms ease;
+    transition: $transition;
     padding: 0.75rem 0.6rem;
     margin: 0 1.5rem 0 1.5rem;
     border-style: solid;
@@ -74,7 +69,7 @@
     opacity: 0%;
     font-weight: bold;
     margin-left:2rem;
-    transition: 200ms ease;
+    transition: $transition;
     font-size: $small-font-size;
 }
 
@@ -120,5 +115,5 @@
 .brand-name {
     margin-left: 5px;
     opacity: 0%;
-    transition: 200ms ease;
+    transition: $transition;
 }

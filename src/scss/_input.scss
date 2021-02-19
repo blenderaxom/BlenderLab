@@ -4,18 +4,13 @@ input, textarea {
     background: none;
     color: $light-text-color;
     padding: 12px 22px;
-    transition: 200ms ease;
+    transition: $transition;
     font-family: inherit;
     font-weight: bold;
     resize: none;
     width: 100%;
     vertical-align: top;
-    &::-webkit-scrollbar {
-        width: 0.30rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: $primary-color;
-    }
+    @include webkit();
 }
 .field {
     border-radius: 10px;

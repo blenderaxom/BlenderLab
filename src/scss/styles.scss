@@ -56,20 +56,13 @@ body {
     top: 1rem;
     background-color: $dark-bg;
     color: $light-text-color;
-    transition: 200ms ease;
+    transition: $transition;
     margin: 0;
     padding: 5rem 2rem 0 8rem;
     font-size: $normal-font-size;
     font-family: $font-family;
 
-    &::-webkit-scrollbar {
-        background-color: $dark-bg;
-        width: 0.30rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: $primary-color;
-    }
+    @include webkit();
 }
 
 .newProjectWindowBody {

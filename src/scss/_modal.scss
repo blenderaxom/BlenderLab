@@ -19,14 +19,7 @@
     background-color: rgba(0, 0, 0, 0.589);
     /* Black w/ opacity */
 
-    &::-webkit-scrollbar {
-        background-color: $dark-bg;
-        width: 0.30rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: $primary-color;
-    }
+    @include webkit();
 }
 
 /* Modal Content/Box */

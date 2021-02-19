@@ -57,9 +57,11 @@ class ProjectPageTemplate extends HTMLElement {
             hljs.highlightBlock(l);
         })
         var editDecBtn = document.getElementById(editBtnId)
-        let desEditor
+        let desEditor = null
         editDecBtn.addEventListener('click', (e) => {
-            desEditor = setUpEditorWithBlock(desId, data.description)
+            if (desEditor==null){
+                desEditor = setUpEditorWithBlock(desId, data.description)
+            }
             projectPageContent.style.display = "none";
             pageEditContent.style.display = "block";
             window.scrollTo(0, 0)
@@ -83,26 +85,12 @@ class ProjectPageTemplate extends HTMLElement {
                 console.log('Saving failed: ', error)
             });
         })
-        var Tree = document.createElement('div')
-        Tree.classList.add('tree')
-        var TreeView = document.createElement('ul')
-        TreeView.id = "tree-view" + this.id
-        TreeView.classList.add('TreeView')
-        TreeView.innerHTML =
-            `
-            <h4>Project Tree</h4>
-            <li>
-                <span class="caret"><i class="fas fa-folder"></i>${data.title}</span>
-                <ul class="nested", id="treeParent${this.id}"></ul>
-            </li>
-        `
-        Tree.insertAdjacentElement('beforeend', TreeView)
+        var Tree = document.createElement('tree-view')
+        Tree.id = "project-tree"+this.id
+        Tree.setAttribute("location", location)
+        Tree.setAttribute("title", data.title)
         contentDiv.insertAdjacentElement('beforeend', Tree)
-
-        BL.loadDirTree([location, `treeParent${this.id}`])
-
     }
-
 }
 
 window.customElements.define('project-page', ProjectPageTemplate);

@@ -90,7 +90,19 @@ function saveAndRender(editor, element) {
     });
 }
 
+
 function parseEditorBlocks(output) {
-    const parser = new edjsParser();
+    const customParsers = {
+        paragraph: function(data, config) {
+            if (data.alignment=="center"){
+                return `<p style="text-align:center;">${data.text}</p>`
+            } else if (data.alignment=="left"){
+                return `<p style="text-align:left;">${data.text}</p>`
+            } else {
+                return `<p style="text-align:right;">${data.text}</p>`
+            }
+        },
+    }
+    const parser = new edjsParser(undefined, customParsers);
     return parser.parse(output);
 }

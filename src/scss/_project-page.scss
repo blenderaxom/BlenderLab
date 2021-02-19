@@ -1,54 +1,61 @@
-.content-div{
+.content-div {
     display: flex;
     justify-content: space-between;
 }
 
-.project-page-content, .page-edit-content{
-    width: fit-content;
+.project-page-content,
+.page-edit-content {
+    width: 100%;
     min-width: 400px;
-    max-width: 750px;
+    max-width: 650px;
     margin: 10px 0;
     display: inline-block;
-    h6{
+
+    h6 {
         margin-bottom: 5px;
     }
 
-    .field{
+    .field {
         box-shadow: none;
         border: 2px solid $light-dark-color;
     }
-    .edit-description-btn{
+
+    .edit-description-btn {
         color: $light-dark-color;
         text-align: right;
         padding: 5px;
         border: none;
-        display: flex; 
+        display: flex;
         justify-content: flex-end;
         width: fit-content;
         margin: 0 0 0 auto;
         gap: 3px;
         transition: 200ms ease;
-        &:hover{
+
+        &:hover {
             color: $light-text-color;
         }
     }
-    .save-btn{
-        display: flex; 
+
+    .save-btn {
+        display: flex;
         justify-content: flex-end;
         width: fit-content;
         border: none;
         // margin: 10px 0 0 auto;
     }
-    .save-cancel{
+
+    .save-cancel {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;
     }
 }
 
-.desc-editor{
-    width: 750px;
-    max-width: 750px;
+.desc-editor {
+    width: 100%;
+    min-width: 400px;
+    max-width: 650px;
     border: 2px solid $light-dark-color;
     border-radius: 10px;
     padding: 10px;

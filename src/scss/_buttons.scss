@@ -29,7 +29,7 @@
 }
 .btn-secondary {
     background-color: $btn-secondary-color;
-    transition: 200ms ease;
+    transition: $transition;
     &:hover {
         background-color: $btn-secondary-color-hover;
     }
@@ -37,7 +37,7 @@
 .btn-tertiary {
     background-color: $btn-tertiary-color;
     color: $btn-tertiary-text-color;
-    transition: 200ms ease;
+    transition: $transition;
     &:hover {
         color: $text-color;
     }
@@ -69,7 +69,7 @@
     width: 3rem;
     background-color: $dark-bg;
     border-color: #444;
-    transition: 200ms;
+    transition: $transition;
     font-size: 15px;
     color: $light-dark-color;
     box-shadow: none;
@@ -115,4 +115,10 @@
 #newProjectBtn {
     width: 8rem;
     cursor: pointer;
+}
+.svg-btn-icon{
+    width: 17px;
+    height: 17px;
+    align-self: center;
+    transform: translateY(2px);
 }

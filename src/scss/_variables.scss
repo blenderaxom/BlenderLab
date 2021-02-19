@@ -13,8 +13,11 @@ $border-radius: 0.6rem;
 $normal-font-size: 1rem;
 $small-font-size: 12px;
 $border-radius: 0.6rem;
+$transition: 200ms ease;
 
 $dark-bg: #262626;
+$bg-light: rgba(255, 255, 255, 0.027);
+$bg-light-hover: rgba(255, 255, 255, 0.061);
 $light-shadow-color: #3F3F3F;
 $dark-shadow-color: #101010;
 $button-roundness: 13px;
@@ -37,4 +40,17 @@ $btn-tertiary-text-color: #6c5dd3;
 $btn-only-icon-bg:  #1b1d21;
 /* INPUT COLORS */
 $entry-bg-color: rgb(43, 48, 56);
+
+@mixin webkit {
+    &::-webkit-scrollbar {
+        width: 0.30rem;
+        height: 0.30rem;
+        background-color: $dark-bg;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: $border-radius;
+        background-color: $light-dark-color;
+    }
+}
 

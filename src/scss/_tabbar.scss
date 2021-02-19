@@ -18,7 +18,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
     user-select: none;
-    transition: 200ms ease;
+    transition: $transition;
     z-index: 100;
 
     .tabbar-contents {
@@ -37,7 +37,7 @@
             padding: 3px 10px;
             color: $light-dark-color;
             cursor: pointer;
-            transition: inherit;
+            transition: $transition;
             text-decoration: none;
 
             &:hover {
@@ -56,28 +56,10 @@
             }
         }
 
-        &::-webkit-scrollbar {
-
-            width: 0.30rem;
-            height: 0.30rem;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            position: absolute;
-            border-radius: $border-radius;
-            background-color: $light-dark-color;
-        }
+        @include webkit();
     }
 
-    &::-webkit-scrollbar {
-        width: 0.30rem;
-        height: 0.30rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        border-radius: $border-radius;
-        background-color: $light-dark-color;
-    }
+    @include webkit();
 }
 
 
@@ -86,7 +68,7 @@
     border-radius: 20px;
     padding: 3px 10px;
     cursor: pointer;
-    transition: inherit;
+    transition: $transition;
     width: fit-content;
     overflow: hidden;
     display: flex;
