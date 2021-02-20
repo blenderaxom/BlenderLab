@@ -1,19 +1,24 @@
 const treeView = document.createElement('template');
-treeView.innerHTML =
+const s = 
 `
-    <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
-    <div class="tree">
-        <ul class="TreeView">
-            <h4 id="title"></h4>
-            <li>
-                <span class="caret" id="parentItemTitle"></span>
-                <ul class="nested" id="parentItem"></ul>
-            </li>
-        </ul>
+<link rel="stylesheet" href="../css/styles.css">
+<link href="../css/all.css" rel="stylesheet">
+<div class="tree">
+    <div id="tree-tools-container">
+        <button id="new-blend-file"><i class="fas fa-file-medical"></i></button>
+        <button id="new-folder"><i class="fas fa-folder-plus"></i></button>
+        <button id="refresh-dir"><i class="fas fa-sync-alt"></i></button>
     </div>
+    <ul class="TreeView">
+        <h4 id="title"></h4>
+        <li id="parent">
+            <span class="caret" id="parentItemTitle"></span>
+            <ul class="nested" id="parentItem"></ul>
+        </li>
+    </ul>
+</div>
 `
-
+treeView.innerHTML = s
 class TreeView extends HTMLElement {
     constructor() {
         super();
@@ -21,28 +26,66 @@ class TreeView extends HTMLElement {
         this.shadowRoot.appendChild(treeView.content.cloneNode(true));
     }
 
-    updateTree() {
-        var toggler = this.shadowRoot.querySelectorAll(".caret");
-        var i;
-
-        for (i = 0; i < toggler.length; i++) {
-            toggler[i].addEventListener("click", function () {
-                this.parentElement.querySelector(".nested").classList.toggle("active");
-                this.classList.toggle("caret-down");
-            });
-            toggler[i].click()
-        }
-    }
-
     connectedCallback() {
-        var title = this.getAttribute("title")
+        var title = this.getAttribute("name")
         var location = this.getAttribute('location')
 
         const titleElement = this.shadowRoot.getElementById("parentItemTitle")
+        titleElement.classList.add('active-item')
+        titleElement.setAttribute('location', location)
         titleElement.innerHTML = `<i class="fas fa-folder"></i>${title}`
+
+        titleElement.addEventListener("click", function () {
+            this.parentElement.querySelector(".nested").classList.toggle("active");
+            this.classList.toggle("caret-down");
+        });
+        this.shadowRoot.getElementById("parent").addEventListener('click', (e)=>{
+            var active = this.shadowRoot.querySelector('.active-item')
+            active.classList.remove('active-item')
+            e.target.classList.add('active-item')
+        })
+        titleElement.click()
+
         BL.loadDirTree([location, this.id])
-        this.addEventListener('update-tree',(e)=>{
-            this.updateTree()
+
+        const toolsettings = this.shadowRoot.getElementById("tree-tools-container")
+        const tree = this.shadowRoot.querySelector('.tree')
+        tree.addEventListener('mouseenter', (e) => {
+            toolsettings.style.display = "block"
+        })
+        tree.addEventListener('mouseleave', (e) => {
+            toolsettings.style.display = "none"
+        })
+
+        var newBlendFileBtn = this.shadowRoot.getElementById("new-blend-file")
+        var newFolderBtn = this.shadowRoot.getElementById("new-folder")
+        var refreshDirBtn = this.shadowRoot.getElementById("refresh-dir")
+        newBlendFileBtn.addEventListener('click', (e)=>{
+            var getActive = this.shadowRoot.querySelector('.active-item')
+            console.log(getActive.getAttribute('location'))
+            
+        })
+        newFolderBtn.addEventListener('click', (e)=>{
+            var getActive = this.shadowRoot.querySelector('.active-item');
+            let newItem = document.createElement('temp-input');
+            newItem.setAttribute("type", "folder");
+            newItem.setAttribute("location", getActive.getAttribute('location'));
+            newItem.setAttribute("treeId", this.id);
+            if (getActive.classList.contains('caret')){
+                if (getActive.classList.contains('caret-down') == false){
+                    getActive.classList.toggle("caret-down");
+                    getActive.parentElement.querySelector(".nested").classList.toggle("active");
+                }
+                newItem.setAttribute('parentId',getActive.nextElementSibling.id)
+                getActive.nextElementSibling.appendChild(newItem)
+            } else {
+                newItem.setAttribute('parentId',getActive.id)
+                getActive.insertAdjacentElement('afterend',newItem)
+            };
+        })
+        refreshDirBtn.addEventListener('click', (e)=>{
+            var getActive = this.shadowRoot.querySelector('.active-item')
+            console.log(getActive.getAttribute('location'))
         })
     }
 }

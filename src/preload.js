@@ -1,6 +1,11 @@
 const { contextBridge, ipcRenderer } = require('electron');
 const { getProjectList, getId } = require('./js/db');
-const { getProjectDetails, writeProjectData, dirWalk } = require('./js/helpers')
+const { 
+    getProjectDetails,
+    writeProjectData, 
+    dirWalk,
+    createNewFile
+ } = require('./js/helpers')
 
 // MAIN API TO INTERACT WITH DIFFERENT WINDOWS
 contextBridge.exposeInMainWorld('BL', {
@@ -44,11 +49,17 @@ contextBridge.exposeInMainWorld('BL', {
     loadDirTree: (args) => {
         var element = document.getElementById(args[1])
         var parent = element.shadowRoot.getElementById("parentItem")
+        parent.innerHTML=''
         dirWalk(args[0], parent, function (err, results) {
             if (err) throw err;
-            
-            const event = new Event('update-tree');
-            element.dispatchEvent(event);
+        })
+    },
+    createNewItem: (type,location,name,treeId,parentId)=>{
+        var parent = document.getElementById(treeId).shadowRoot.getElementById(parentId)
+        createNewFile(type,location,name,parent,function(err, result){
+            if (err){
+                console.log(err)
+            }
         })
     }
 });

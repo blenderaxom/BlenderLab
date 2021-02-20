@@ -1,29 +1,66 @@
-input, textarea {
+input,
+textarea {
     border: none;
     outline: none;
     background: none;
     color: $light-text-color;
-    padding: 12px 22px;
     transition: $transition;
     font-family: inherit;
     font-weight: bold;
     resize: none;
     width: 100%;
     vertical-align: top;
+    &::selection{
+        background: rgb(27, 27, 27);
+    }
     @include webkit();
 }
+
 .field {
+    padding: 12px 22px;
     border-radius: 10px;
     margin-bottom: 15px;
     box-shadow: inset 3px 3px 5px $dark-shadow-color, inset -3px -3px 5px $light-shadow-color;
 }
+
 .editText {
     width: 100%;
     height: auto;
 }
+
 .entry-grp {
+    padding: 12px 22px;
     width: 100%;
     margin-bottom: 15px;
     border-radius: 10px 0 0 10px;
     box-shadow: inset 3px 3px 5px $dark-shadow-color, inset -3px -3px 5px $light-shadow-color;
+}
+
+#bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(41, 41, 41, 0.609);
+}
+
+#container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 11;
+
+    .field-value {
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        font-size: 13px;
+        background-color: $bg-light-hover;
+        border-radius: 7px;
+        // box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
+        // border: 1px solid rgb(243, 243, 243);
+    }
 }

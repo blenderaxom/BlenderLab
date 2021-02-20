@@ -88,7 +88,7 @@ class ProjectPageTemplate extends HTMLElement {
         var Tree = document.createElement('tree-view')
         Tree.id = "project-tree"+this.id
         Tree.setAttribute("location", location)
-        Tree.setAttribute("title", data.title)
+        Tree.setAttribute("name", data.title)
         contentDiv.insertAdjacentElement('beforeend', Tree)
     }
 }

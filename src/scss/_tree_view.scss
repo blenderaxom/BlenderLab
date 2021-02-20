@@ -42,8 +42,31 @@ ul {
     height: fit-content;
     user-select: none;
     transition: $transition;
+    position: relative;
+    display: inline-block;
     &:hover{
         background-color: $bg-light-hover;
+    }
+    #tree-tools-container{
+        display: none;
+        width: fit-content;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        button{
+            outline: none;
+            background:none;
+            color: $light-text-color;
+            font-size: 15px;
+            box-shadow: none;
+            border-style: none;
+            cursor: pointer;
+            padding: 5px;
+            &:hover{
+                color: $primary-color;
+                background-color: $bg-light-hover;
+            }
+        }
     }
 }
 .TreeView{
@@ -60,19 +83,31 @@ ul {
         cursor: pointer;
         transition: $transition;
         &:hover{
-            color: $primary-color;
+            color: $primary-light-color;
         }
         
         i{
             padding-right: 6px;
         }
+        &.active-item{
+            color: $primary-color;
+            &:hover{
+                color: $primary-light-color;
+            }
+        }
         span{
+            &.active-item{
+                color: $primary-light-color;
+                &:hover{
+                    color: $primary-light-color;
+                }
+            }
+            color: $light-text-color;
             i{
                 padding-right: 6px;
             }
-            color: $light-text-color;
             &:hover{
-                color: $primary-color;
+                color: $primary-light-color;
             }
             text-overflow: ellipsis;
         }
