@@ -22,10 +22,6 @@
     color: $primary-text-color;
     background-color: $primary-color;
     font-weight: 700;
-    box-shadow: 6px 6px 10px $dark-shadow-color, -6px -6px 10px $light-shadow-color;
-    &:hover {
-        box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
-    }
 }
 .btn-secondary {
     background-color: $btn-secondary-color;
@@ -38,6 +34,7 @@
     background-color: $btn-tertiary-color;
     color: $btn-tertiary-text-color;
     transition: $transition;
+    border: none;
     &:hover {
         color: $text-color;
     }

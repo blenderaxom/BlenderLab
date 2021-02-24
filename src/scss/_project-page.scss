@@ -10,7 +10,13 @@
     max-width: 650px;
     margin: 10px 0;
     display: inline-block;
-
+    background-color: $bg-light;
+    padding: 10px;
+    border-radius: 10px;
+    transition: $transition;
+    &:hover{
+        background-color: $bg-light-hover;
+    }
     h6 {
         margin-bottom: 5px;
     }

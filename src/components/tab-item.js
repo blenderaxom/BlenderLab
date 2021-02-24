@@ -36,7 +36,6 @@ class TabItem extends HTMLElement {
         nameElement.addEventListener('click', (e)=>{
             shadow.setActive()
             setTabContent(id)
-            showSidebar()
         })
 
         /* Do something when we click on close icon */
@@ -57,7 +56,6 @@ class TabItem extends HTMLElement {
 
             this.remove() // delete the clicked tab
             document.getElementById(id).remove() // delete the tab contents
-            showSidebar()
         })
 
 

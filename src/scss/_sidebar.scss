@@ -4,18 +4,19 @@
     bottom: 1.4rem;
     width: 92px;
     position: fixed;
-    background-color: $dark-bg;
+    background-color: $bg-light;
     color: $light-text-color;
     transition: width $transition;
     z-index: 2;
-    box-shadow: 5px 5px 10px $dark-shadow-color, -5px -5px 10px $light-shadow-color;
+    // box-shadow: 5px 5px 10px $dark-shadow-color, -5px -5px 10px $light-shadow-color;
     border-radius: 20px;
-    border-style: solid;
-    border-width: 1px;
+    border: none;
     border-color: $light-shadow-color;
     user-select: none;
     transition: 200ms ease;
+    overflow: auto;
     &:hover {
+        background-color: $bg-light-hover;
         width: 13rem;
          .logo-svg {
             transform: rotate(360deg);
@@ -38,7 +39,7 @@
     transition: $transition;
     padding-bottom: 3rem;
     &:hover {
-        overflow-y: scroll;
+        overflow-y: auto;
     }
     @include webkit();
 }
@@ -77,7 +78,6 @@
     border-color: $dark-bg;
     color: $primary-color;
     background-color: $dark-bg;
-    box-shadow: 3px 3px 6px $dark-shadow-color, -3px -3px 6px $light-shadow-color;
     &:hover {
         color: $primary-color;
     }

@@ -1,0 +1,44 @@
+.downloaded-blender-container{
+    // background-color: $bg-light;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 20px;
+    gap: 20px;
+    display: flex;
+    min-width: 700px;
+    overflow: auto;
+    @include webkit;
+    #lts-container{
+        width: fit-content;
+        height: 100%;
+    }
+    #stable-container{
+        height: 100%;
+        width: fit-content;
+
+    }
+    #experimental-container{
+        height: 100%;
+        width: fit-content;
+    }
+}
+.installed-card{
+    background-color: $bg-light-hover;
+    width: 220px;
+    height: 140px;
+    text-align: center;
+    align-items: center;
+    padding: 6px;
+    #header{
+        margin-top: 10px;
+        overflow: hidden;
+        height: 50px;
+    }
+    .btn{
+        margin-top: 20px;
+        width: 70%;
+    }
+}
+#Installs{
+    margin-bottom: 10px;
+}

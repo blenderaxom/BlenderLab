@@ -10,6 +10,8 @@
 @import './editorjs';
 @import './modal';
 @import './tree_view';
+@import './download-card';
+@import './installs-page';
 
 @font-face {
     font-family: 'Poppins';
@@ -58,13 +60,23 @@ body {
     color: $light-text-color;
     transition: $transition;
     margin: 0;
+    margin-left: 0.5rem;
     padding: 5rem 2rem 0 8rem;
     font-size: $normal-font-size;
     font-family: $font-family;
     ::selection{
         background-color: rgb(27, 27, 27);
     }
-    @include webkit();
+    &::-webkit-scrollbar {
+        width: 0.50rem;
+        height: 0.50rem;
+        background-color: $dark-bg;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: $border-radius;
+        background-color: $light-dark-color;
+    }
 }
 
 .newProjectWindowBody {

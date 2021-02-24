@@ -1,7 +1,7 @@
 $font-family: 'Poppins', sans-serif;
 $text-color: #fff;
 $text-secondary: rgba(255, 255, 255, 0.479);
-$primary-color: #F2B035;
+$primary-color: #F2AE2E;
 $primary-light-color: #ffb85cbe;
 $dark-color: #1b1d21;
 $dark-color-50: #212327;
@@ -16,9 +16,9 @@ $small-font-size: 12px;
 $border-radius: 0.6rem;
 $transition: 200ms ease;
 
-$dark-bg: #262626;
-$bg-light: rgba(255, 255, 255, 0.027);
-$bg-light-hover: rgba(255, 255, 255, 0.061);
+$dark-bg: #212426;
+$bg-light: #272B2F;
+$bg-light-hover: #2D3136;
 $light-shadow-color: #3F3F3F;
 $dark-shadow-color: #101010;
 $button-roundness: 13px;
@@ -53,5 +53,8 @@ $entry-bg-color: rgb(43, 48, 56);
         border-radius: $border-radius;
         background-color: $light-dark-color;
     }
+
+    
 }
+
 

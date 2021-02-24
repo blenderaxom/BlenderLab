@@ -1,6 +1,6 @@
 const treeView = document.createElement('template');
-const s = 
-`
+const s =
+    `
 <link rel="stylesheet" href="../css/styles.css">
 <link href="../css/all.css" rel="stylesheet">
 <div class="tree">
@@ -39,10 +39,15 @@ class TreeView extends HTMLElement {
             this.parentElement.querySelector(".nested").classList.toggle("active");
             this.classList.toggle("caret-down");
         });
-        this.shadowRoot.getElementById("parent").addEventListener('click', (e)=>{
-            var active = this.shadowRoot.querySelector('.active-item')
-            active.classList.remove('active-item')
-            e.target.classList.add('active-item')
+        this.shadowRoot.getElementById("parent").addEventListener('click', (e) => {
+            if (e.target.tagName != 'UL' && e.target.tagName != 'TEMP-INPUT') {
+                var active = this.shadowRoot.querySelector('.active-item')
+                active.classList.remove('active-item')
+                if (e.target.tagName != "I" && e.target.tagName != "IMG"){
+                    e.target.classList.add('active-item')
+                }
+                else{e.target.parentElement.classList.add('active-item')}
+            }
         })
         titleElement.click()
 
@@ -60,30 +65,33 @@ class TreeView extends HTMLElement {
         var newBlendFileBtn = this.shadowRoot.getElementById("new-blend-file")
         var newFolderBtn = this.shadowRoot.getElementById("new-folder")
         var refreshDirBtn = this.shadowRoot.getElementById("refresh-dir")
-        newBlendFileBtn.addEventListener('click', (e)=>{
+        newBlendFileBtn.addEventListener('click', (e) => {
             var getActive = this.shadowRoot.querySelector('.active-item')
             console.log(getActive.getAttribute('location'))
-            
+
         })
-        newFolderBtn.addEventListener('click', (e)=>{
+        newFolderBtn.addEventListener('click', (e) => {
             var getActive = this.shadowRoot.querySelector('.active-item');
-            let newItem = document.createElement('temp-input');
-            newItem.setAttribute("type", "folder");
-            newItem.setAttribute("location", getActive.getAttribute('location'));
-            newItem.setAttribute("treeId", this.id);
-            if (getActive.classList.contains('caret')){
-                if (getActive.classList.contains('caret-down') == false){
-                    getActive.classList.toggle("caret-down");
-                    getActive.parentElement.querySelector(".nested").classList.toggle("active");
-                }
-                newItem.setAttribute('parentId',getActive.nextElementSibling.id)
-                getActive.nextElementSibling.appendChild(newItem)
-            } else {
-                newItem.setAttribute('parentId',getActive.id)
-                getActive.insertAdjacentElement('afterend',newItem)
-            };
+            if (getActive.tagName == "SPAN" || getActive.tagName == "LI") {
+                let newItem = document.createElement('temp-input');
+                newItem.setAttribute("type", "folder");
+                newItem.setAttribute("location", getActive.getAttribute('location'));
+                newItem.setAttribute("treeId", this.id);
+                if (getActive.classList.contains('caret')) {
+                    if (getActive.classList.contains('caret-down') == false) {
+                        getActive.classList.toggle("caret-down");
+                        getActive.parentElement.querySelector(".nested").classList.toggle("active");
+                    }
+                    newItem.setAttribute('parentId', getActive.nextElementSibling.id)
+                    getActive.nextElementSibling.appendChild(newItem)
+                } else {
+                    newItem.setAttribute('parentId', getActive.id)
+                    getActive.insertAdjacentElement('afterend', newItem)
+                };
+            }
+
         })
-        refreshDirBtn.addEventListener('click', (e)=>{
+        refreshDirBtn.addEventListener('click', (e) => {
             var getActive = this.shadowRoot.querySelector('.active-item')
             console.log(getActive.getAttribute('location'))
         })

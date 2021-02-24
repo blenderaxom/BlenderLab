@@ -51,7 +51,6 @@ async function addNewTab(name) {
     tabitem.setAttribute("childId", id)
     tabitem.setActive()
     tabbar.appendChild(tabitem)
-    showSidebar()
     return id
 }
 
@@ -80,30 +79,18 @@ mainTab.addEventListener('click', (e) => {
     mainTab.classList.add("tab-active")
     setTabContent(mainTab.classList[0])
     scrollToPos(parseFloat(mainTab.getAttribute("scrollPos")))
-    showSidebar()
+    // showSidebar()
 })
 
 // Make the main tab active on startup
 mainTab.click()
 
-// Shows the sidebar
-function showSidebar() {
-    if (mainTab.classList.contains("tab-active")) {
-        nav.style.backgroundColor = "transparent"
-        nav.style.boxShadow = "5px 5px 10px #101010, -5px -5px 10px #3F3F3F "
-    } else {
-        nav.style.backgroundColor = "rgba(255, 255, 255, 0.027)"
-        nav.style.boxShadow = "none"
-    }
-}
 // Move contents when expanding sidebar
 nav.addEventListener('mouseenter', () => {
-    nav.style.backgroundColor = "transparent"
-    nav.style.boxShadow = "5px 5px 10px #101010, -5px -5px 10px #3F3F3F "
     document.querySelector("body").style.padding = "5rem 1rem 0 15.4rem";
 })
 nav.addEventListener('mouseleave', () => {
-    showSidebar()
+    // showSidebar()
     document.querySelector("body").style.padding = "5rem 2rem 0 8rem";
 })
 
@@ -115,9 +102,6 @@ newProjBtn.addEventListener('click', (event) => {
 
 // Add the project list container on startup
 BL.addProjects()
-
-
-
 
 function saveScrollPos() {
     if (mainTab.classList.contains("tab-active")) {
@@ -134,7 +118,7 @@ function saveScrollPos() {
         }
     })
 
-    
+
 }
 
 // Scrolls the window to old position
@@ -144,4 +128,3 @@ function scrollToPos(pos) {
     }, 1);
     // window.scrollTo(0, 145)
 }
-

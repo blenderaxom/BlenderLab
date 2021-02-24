@@ -1,15 +1,14 @@
 .project-list-container {
     width: 25rem;
-    padding-left: 0;
     user-select: none;
-    box-shadow: 3px 3px 6px $dark-shadow-color, -3px -3px 6px $light-shadow-color;
+    background-color: $bg-light;
+    overflow: auto;
     .card-header  {
         padding-left: 13px;
         h4 {
             width: fit-content;
             padding: 5px 10px;
             border-radius: $border-radius;
-            box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
             font-size: 14px;
         }
     }
@@ -17,6 +16,7 @@
         border-style: solid;
         border: 5px;
         border-color: rgba(153, 153, 153, 0.294);
+        overflow: auto;
     }
 }
 
@@ -31,9 +31,8 @@ p-c {
     border-radius: 10px;
     transition: $transition;
     padding: 10px 23px;
-    border: 0;
-    border-bottom: 1px;
-    border-style: solid;
+    border: none;
+    background-color: $bg-light-hover;
     border-color: rgba(153, 153, 153, 0.294);
     // box-shadow: 3px 3px 6px #cbced1, -3px -3px 6px #ffffff;
     &:hover {
@@ -42,7 +41,6 @@ p-c {
             font-weight: bold;
             color: $primary-color;
         }
-        box-shadow: inset 3px 3px 6px $dark-shadow-color, inset -3px -3px 6px $light-shadow-color;
     }
 }
 

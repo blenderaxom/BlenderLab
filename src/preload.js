@@ -1,10 +1,12 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { app,contextBridge, ipcRenderer } = require('electron');
 const { getProjectList, getId } = require('./js/db');
 const { 
     getProjectDetails,
     writeProjectData, 
     dirWalk,
-    createNewFile
+    createNewFile,
+    download,
+    getBlenderExecutables
  } = require('./js/helpers')
 
 // MAIN API TO INTERACT WITH DIFFERENT WINDOWS
@@ -32,7 +34,7 @@ contextBridge.exposeInMainWorld('BL', {
         ipcRenderer.invoke("create-project", args);
     },
     addProjects: async () => {
-        const udpath = await ipcRenderer.invoke("get-user-data-path");
+        const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
         getProjectList(udpath)
     },
     getProject: async (p) => {
@@ -61,5 +63,16 @@ contextBridge.exposeInMainWorld('BL', {
                 console.log(err)
             }
         })
-    }
+    },
+    downloadfile: (link,shadowId,type)=>{
+        var shadow = document.getElementById(shadowId).shadowRoot
+        ipcRenderer.invoke("get-user-data-path", ["downloads",'userData']).then((result)=>{
+            console.log(result)
+            download(link,shadow,result[0],result[1],type)
+        });
+    },
+    setupDownloadedBlenderCards: async ()=>{
+        const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
+        getBlenderExecutables(udpath);
+    },
 });

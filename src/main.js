@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const { electron } = require('process');
 const { v4: uuidv4 } = require("uuid");
+const fs = require('fs');
 const { addProjectToDatabase } = require('./js/db');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -65,6 +66,21 @@ app.on('activate', () => {
 function CurWindow() {
   return BrowserWindow.getFocusedWindow()
 }
+
+const getDefaultBlen = new Promise((resolve, reject) => {
+  var defaultBlenderStoreFile = path.join(app.getPath('userData'), 'defaultBlender.json')
+  if (fs.existsSync(defaultBlenderStoreFile)) {
+    fs.readFile(defaultBlenderStoreFile, { encoding: 'utf-8' }, (err, data) => {
+      if (err) return reject(err);
+      return resolve(JSON.parse(data));
+    })
+  } else {
+    fs.writeFile(defaultBlenderStoreFile, '', (err)=>{
+      if (err) return reject(err);
+      return resolve(undefined);
+    })
+  }
+})
 
 ipcMain.handle('open-folder', async (event, ...arg) => {
   const curWin = CurWindow()
@@ -139,7 +155,6 @@ ipcMain.handle("create-project", (event, args) => {
   const templateLocation = ""
   let id = uuidv4()
 
-  const fs = require('fs');
   const dir = `${location}\\${projectName}`;
   const pythonFile = path.join(__dirname, "python/createBlenderFile.py")
   const executablePath = "E:\\blender\\blender-2.92\\blender-2.92.0-8d3d4c884084-windows64\\blender.exe";
@@ -168,10 +183,10 @@ ipcMain.handle("create-project", (event, args) => {
       fs.writeFile(dir + '\\project.blenderlab', JSON.stringify(jsonContents, null, 2), function (err) {
         if (err) return console.log(err);
       });
-      var param=[dir + `\\${blendName}`+'.blend']
+      var param = [dir + `\\${blendName}` + '.blend']
 
       var child = require('child_process').spawn;
-      var cp = child(executablePath, param, {detached: true, windowsHide:false});
+      var cp = child(executablePath, param, { detached: true, windowsHide: false });
       cp.unref();
       cw.close()
       addProjectToDatabase([dir, id, app.getPath('userData')])
@@ -186,6 +201,17 @@ ipcMain.handle("create-project", (event, args) => {
 /*  ---------------------------------  */
 
 ipcMain.handle("get-user-data-path", (event, args) => {
-  return app.getPath('userData')
+  if (args.length == 1) {
+    if (args[0] == 'userData') {
+      return app.getPath('userData')
+    }
+    else {
+      return app.getPath('temp')
+    }
+  }
+  else {
+    return [app.getPath('temp'), app.getPath('userData')]
+  }
+
 });
 
