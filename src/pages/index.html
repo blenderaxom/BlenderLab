@@ -19,13 +19,13 @@
     </div>
     <div class="navbar">
       <nav class="navbar-nav">
-        <div>
-          <div class="logo">
-            <div class="logo-container">
-              <img src="../images/Logo.png" alt="BlenderLab" class="logo-svg" />
-            </div>
-            <!-- <span class="brand-name">BlenderLab</span> -->
+        <div class="logo">
+          <div class="logo-container">
+            <img src="../images/Logo.png" alt="BlenderLab" class="logo-svg" />
           </div>
+          <!-- <span class="brand-name">BlenderLab</span> -->
+        </div>
+        <div>
           <div class="nav-list">
             <a href="#" class="home nav-link" onclick="openPage(event, 'Home')" id="defaultOpen">
               <i class="fas fa-home"></i>
@@ -56,14 +56,27 @@
               <span class="link-text">Market</span>
             </a> -->
           </div>
+
+        </div>
+        <div class="bottomItems">
+          <a href="#" class="btm-item nav-link" id="userBtn">
+            <i class="fas fa-user"></i>
+            <span class="link-text">User</span>
+          </a>
+          <a href="#" class="btm-item nav-link" id="settingsBtn">
+            <i class="fas fa-cog"></i>
+            <span class="link-text">Settings</span>
+          </a>
         </div>
       </nav>
     </div>
 
     <div id="Home" class="tabcontent">
-      <button class="btn btn-primary" id="new-project-button">New Project</button>
-      <br>
-      <br>
+      <div class="projectBtnContainer">
+        <button class="btn btn-primary" id="new-project-button">New Project</button>
+        <button class="btn btn-secondary" id="add-project-button">Add</button>
+      </div>
+
       <div class="card project-list-container">
         <div class="card-header">
           <h4>Recent Projects</h4>
@@ -131,7 +144,7 @@
   <script src="../scripts/@editorjs/code/bundle.js"></script>
   <script src="../scripts/@editorjs/drag-drop/bundle.js"></script>
   <script src="../scripts/@editorjs/undo/bundle.js"></script>
-  <script src="../scripts/@editorjs/paragraph/bundle.js"></script>
+  <!-- <script src="../scripts/@editorjs/paragraph/bundle.js"></script> -->
 
   <script src="../js/func.helpers.js"></script>
   <script src="../js/index.js"></script>
@@ -144,6 +157,7 @@
   <script src="../components/temp-input.js"></script>
   <script src="../components/blend-down-card.js"></script>
   <script src="../components/installed-blender-card.js"></script>
+  <script src="../components/temp-blen-selector.js"></script>
 </body>
 
 </html>

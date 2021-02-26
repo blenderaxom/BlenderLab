@@ -62,7 +62,10 @@ class TabItem extends HTMLElement {
         var tabbar = document.querySelector(".tabbar-contents");
         
         // tabbar.scrollTo(10000,0)
-        this.scrollIntoView(true, { behavior: "smooth", block: "end", inline: "end" });
+        setTimeout(()=>{
+            this.scrollIntoView(true, { behavior: "smooth", block: "end", inline: "end" });
+        }, 100)
+        
     }
 }
 

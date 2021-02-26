@@ -37,10 +37,12 @@ openFolderBtn.addEventListener("click", async (event) => {
 
 createBtn.addEventListener('click', (event) => {
     editor.save().then((outputData) => {
-        pjtName = document.querySelector("#projectName")
+        const pjtName = document.querySelector("#projectName")
         // description = document.querySelector("#description")
-        blendName = document.querySelector("#blendName")
-        locationField = document.querySelector("#location")
+        const blendName = document.querySelector("#blendName")
+        const locationField = document.querySelector("#location")
+        const selector = document.querySelector("#blender-selector-new-project")
+            .shadowRoot.querySelector("select")
 
         if (pjtName.value == "") {
             pjtName.focus();
@@ -54,7 +56,7 @@ createBtn.addEventListener('click', (event) => {
             return false
         }
         BL.createProject(
-            [pjtName.value, JSON.stringify(outputData, null, 2), blendName.value, locationField.value, mode, type]
+            [pjtName.value, JSON.stringify(outputData, null, 2), blendName.value, locationField.value, mode, type, selector.value]
         );
     }).catch((error) => {
         console.log('Saving failed: ', error)

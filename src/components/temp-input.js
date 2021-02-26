@@ -20,11 +20,16 @@ class TempInput extends HTMLElement {
     }
 
     connectedCallback() {
+        var input = this.shadowRoot.getElementById('name')
+        this.style.display = 'none'
+        setTimeout(()=>{this.style.display = 'block';input.focus()}, 50)
+        
+        
+        const shad = this;
         var type = this.getAttribute('type');
         var location = this.getAttribute('location')
         var treeId = this.getAttribute('treeId')
         var parentId = this.getAttribute('parentId')
-        var input = this.shadowRoot.getElementById('name')
         var folderIcon = this.shadowRoot.getElementById('folderIcon')
         var blendIcon = this.shadowRoot.getElementById('blendIcon')
         var bg = this.shadowRoot.getElementById('bg')
@@ -37,7 +42,6 @@ class TempInput extends HTMLElement {
             blendIcon.style.display = "none";
             folderIcon.style.display = "block";
         }
-        input.focus();
         // When the user clicks anywhere outside of the modal, close it
         input.addEventListener('keyup', (e) => {
             if (e.key === 'Enter') {
@@ -45,9 +49,22 @@ class TempInput extends HTMLElement {
                     done = true;
                     this.remove()
                 } else {
-                    done = true;
-                    BL.createNewItem(type, location, input.value, treeId, parentId)
-                    this.remove()
+                    if (type == "blend"){
+                        done = true;
+                        var selector = document.createElement('temp-blend-selector')
+                        selector.setAttribute('name', input.value)
+                        selector.setAttribute('location', location)
+                        selector.setAttribute('treeId', treeId)
+                        selector.setAttribute('treeItemId', parentId)
+                        selector.id = treeId+'selector'
+                        document.body.appendChild(selector)
+                        shad.remove()
+                    } else {
+                        done = true;
+                        BL.createNewItem(type, location, input.value, treeId, parentId)
+                        this.remove()
+                    }
+                    
                 }
             }
             else if (e.key === 'Escape') {

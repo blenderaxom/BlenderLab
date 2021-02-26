@@ -12,6 +12,8 @@
 @import './tree_view';
 @import './download-card';
 @import './installs-page';
+@import './blender-selector';
+@import './homepage';
 
 @font-face {
     font-family: 'Poppins';
@@ -80,7 +82,7 @@ body {
 }
 
 .newProjectWindowBody {
-    background-color: $dark-bg;
+    background-color: $bg-light;
     padding: 0 2rem;
     user-select: none;
 }

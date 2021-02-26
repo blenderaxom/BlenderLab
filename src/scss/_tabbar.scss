@@ -8,14 +8,15 @@
     justify-content: left;
     align-items: center;
     width: fit-content;
-    max-width: 100vw - 30vw;
-    border-radius: 20px;
+    max-width: 100vw - 43vw;
+    border-radius: 6px;
     font-size: 13px;
     overflow-y: hidden;
     overflow-x: hidden;
     user-select: none;
     transition: $transition;
     z-index: 100;
+    white-space: nowrap;
 
     .tabbar-contents {
         gap: 10px;

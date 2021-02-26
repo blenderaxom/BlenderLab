@@ -29,6 +29,7 @@
     text-align: center;
     align-items: center;
     padding: 6px;
+    transition: $transition;
     #header{
         margin-top: 10px;
         overflow: hidden;
@@ -37,6 +38,9 @@
     .btn{
         margin-top: 20px;
         width: 70%;
+    }
+    &.default{
+        border: 1px solid $primary-color;
     }
 }
 #Installs{

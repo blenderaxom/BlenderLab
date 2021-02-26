@@ -67,21 +67,6 @@ function CurWindow() {
   return BrowserWindow.getFocusedWindow()
 }
 
-const getDefaultBlen = new Promise((resolve, reject) => {
-  var defaultBlenderStoreFile = path.join(app.getPath('userData'), 'defaultBlender.json')
-  if (fs.existsSync(defaultBlenderStoreFile)) {
-    fs.readFile(defaultBlenderStoreFile, { encoding: 'utf-8' }, (err, data) => {
-      if (err) return reject(err);
-      return resolve(JSON.parse(data));
-    })
-  } else {
-    fs.writeFile(defaultBlenderStoreFile, '', (err)=>{
-      if (err) return reject(err);
-      return resolve(undefined);
-    })
-  }
-})
-
 ipcMain.handle('open-folder', async (event, ...arg) => {
   const curWin = CurWindow()
   const result = await dialog.showOpenDialog(curWin, {
@@ -152,12 +137,12 @@ ipcMain.handle("create-project", (event, args) => {
   const location = args[3]
   const mode = args[4]
   const type = args[5]
+  const executablePath = path.join(args[6], 'blender.exe')
   const templateLocation = ""
   let id = uuidv4()
 
   const dir = `${location}\\${projectName}`;
   const pythonFile = path.join(__dirname, "python/createBlenderFile.py")
-  const executablePath = "E:\\blender\\blender-2.92\\blender-2.92.0-8d3d4c884084-windows64\\blender.exe";
 
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -215,3 +200,60 @@ ipcMain.handle("get-user-data-path", (event, args) => {
 
 });
 
+const getDefaultBlen = () => new Promise((resolve, reject) => {
+  var defaultBlenderStoreFile = path.join(app.getPath('userData'), 'defaultBlender.json')
+  if (fs.existsSync(defaultBlenderStoreFile)) {
+    fs.readFile(defaultBlenderStoreFile, { encoding: 'utf-8' }, (err, data) => {
+      if (err) return reject(err);
+
+      if (JSON.parse(data).empty == true) return resolve(undefined)
+
+      else return resolve(JSON.parse(data).location);
+    })
+  } else {
+    fs.writeFile(defaultBlenderStoreFile, JSON.stringify({ empty: true }), (err) => {
+      if (err) return reject(err);
+      return resolve(undefined);
+    })
+  }
+})
+
+ipcMain.handle('get-default-blender', async (event, args) => {
+  const res = await getDefaultBlen()
+  return res
+})
+
+function createBlenderCreatorPythonFile() {
+  var content =
+`
+import bpy
+import sys
+argv = sys.argv
+argv=argv[argv.index("--") + 1:]
+
+path=argv[0]
+filename=argv[1]
+mode=argv[2]
+tmptype=argv[3]
+
+
+if tmptype == "DEFAULT":
+    if mode == "GENERAL":
+        bpy.ops.wm.read_homefile(app_template="")
+    elif mode == "SCULPT":
+        bpy.ops.wm.read_homefile(app_template="Sculpting")
+    elif mode == "ANIM_2D":
+        bpy.ops.wm.read_homefile(app_template="2D_Animation")
+    elif mode == "VFX":
+        bpy.ops.wm.read_homefile(app_template="VFX")
+    elif mode == "VIDEO_EDITING":
+        bpy.ops.wm.read_homefile(app_template="Video_Editing")
+
+bpy.ops.wm.save_as_mainfile(filepath=path+"\\\\"+filename+".blend")
+`
+  var file = path.join(app.getPath('userData'), 'createBlenderFile.py')
+  fs.writeFile(file, content, (err) => {
+    if (err) return reject(err);
+  })
+}
+createBlenderCreatorPythonFile()

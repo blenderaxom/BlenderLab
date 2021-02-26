@@ -6,7 +6,10 @@ const {
     dirWalk,
     createNewFile,
     download,
-    getBlenderExecutables
+    getBlenderExecutables,
+    selectBlender,
+    setUpSelector,
+    addBlenderVersionsIntempSelector
  } = require('./js/helpers')
 
 // MAIN API TO INTERACT WITH DIFFERENT WINDOWS
@@ -67,12 +70,31 @@ contextBridge.exposeInMainWorld('BL', {
     downloadfile: (link,shadowId,type)=>{
         var shadow = document.getElementById(shadowId).shadowRoot
         ipcRenderer.invoke("get-user-data-path", ["downloads",'userData']).then((result)=>{
-            console.log(result)
             download(link,shadow,result[0],result[1],type)
         });
     },
     setupDownloadedBlenderCards: async ()=>{
         const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
-        getBlenderExecutables(udpath);
+        const defBlender = await ipcRenderer.invoke("get-default-blender");
+        getBlenderExecutables(udpath,defBlender);
     },
+    selectDefaultBlender: async (location)=>{
+        const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
+        selectBlender(udpath, location)
+    },
+    setUpBlenderSelector: async (id)=>{
+        const defBlender = await ipcRenderer.invoke("get-default-blender");
+        const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
+        setUpSelector(udpath,defBlender,id);
+    },
+    createBlendVerSelector: async (treeId, treeitemId, selectorId, location,name)=>{
+        console.log(selectorId);
+        
+        const selector = document.getElementById(selectorId)
+        const container = selector.shadowRoot.getElementById('blender-selector')
+        
+        var treeitem = document.getElementById(treeId).shadowRoot.getElementById(treeitemId)
+        const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
+        addBlenderVersionsIntempSelector(udpath,container,location,name,treeitem)
+    }
 });

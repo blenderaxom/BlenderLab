@@ -50,6 +50,11 @@
     margin: 4rem 0 3rem;
     box-shadow: none;
     border: 1px solid $dark-shadow-color;
+    .card-header{
+        justify-content: space-between;
+        display: flex;
+    }   
+   
 }
 .template-card {
     height:auto;

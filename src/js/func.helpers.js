@@ -14,10 +14,6 @@ var tools = {
         class: List,
         inlineToolbar: true,
     },
-    paragraph: {
-        class: Paragraph,
-        inlineToolbar: true,
-    },
     embed: {
         class: Embed,
         config: {
@@ -103,7 +99,7 @@ function parseEditorBlocks(output) {
             }
         },
     }
-    const parser = new edjsParser(undefined, customParsers);
+    const parser = new edjsParser();
     return parser.parse(output);
 }
 

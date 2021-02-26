@@ -81,7 +81,7 @@ var dirWalk = function (dir, parent, done) {
     });
 };
 
-var createNewFile = function (type, location, name, parent, done) {
+var createNewFile = function (type, location, name, parent, done, execPath = undefined,pythonFile=undefined) {
     fs.lstat(location, (err, stats) => {
         if (err)
             return done(err); //Handle error
@@ -107,6 +107,19 @@ var createNewFile = function (type, location, name, parent, done) {
         } else if (type == "blend") {
             if (stats.isFile()) {
                 var dir = path.dirname(location);
+                var child = require('child_process').execFile;
+                var parameters = ["-b", '-P', pythonFile, "--", dir, name, "GENERAL", "DEFAULT", ""];
+                child(execPath, parameters, function (err, data) {
+                    if (err) return done(err)
+                    return done(null, data)
+                })
+            } else {
+                var child = require('child_process').execFile;
+                var parameters = ["-b", '-P', pythonFile, "--", location, name, "GENERAL", "DEFAULT", ""];
+                child(execPath, parameters, function (err, data) {
+                    if (err) return done(err)
+                    return done(null, data)
+                })
             }
         }
     });
@@ -178,14 +191,14 @@ async function download(link, shadow, finalPath, userDataPath, type) {
     downloader.start()
 }
 
-const getExecutables = (folderpath) => new Promise((resolve, reject) => {
+const getExecutablesFolder = (folderpath) => new Promise((resolve, reject) => {
     let blenderFolders = []
     fs.readdir(folderpath, (err, files) => {
-        
+
         if (err) return reject(err);
         files.forEach(file => {
-            var folder =  path.join(folderpath, file);
-            if(fs.existsSync(path.join(folder,'blender.exe')))
+            var folder = path.join(folderpath, file);
+            if (fs.existsSync(path.join(folder, 'blender.exe')))
                 blenderFolders.push([files, folder]);
         })
 
@@ -193,13 +206,16 @@ const getExecutables = (folderpath) => new Promise((resolve, reject) => {
     })
 })
 
-function createInstalledCardAndAppend(parent,name) {
+function createInstalledCardAndAppend(parent, name, location, selected) {
     const card = document.createElement('installed-blender-card');
     card.setAttribute('name', name);
+    card.setAttribute('location', location);
+    if (selected) card.setAttribute('selected', true);
+    else card.setAttribute('selected', false);
     parent.appendChild(card);
 }
 
-function getBlenderExecutables(userDataPath) {
+function getBlenderExecutables(userDataPath, defaultBlender) {
     const BlenderDownloads = path.join(userDataPath, 'BlenderDownloads');
     const stablePath = path.join(BlenderDownloads, 'STABLE')
     const ltsPath = path.join(BlenderDownloads, 'LTS')
@@ -209,32 +225,136 @@ function getBlenderExecutables(userDataPath) {
     const ltsContainer = document.getElementById('lts-container')
     const expContainer = document.getElementById('experimental-container')
 
-    getExecutables(stablePath)
+    getExecutablesFolder(stablePath)
         .then(res => {
-            console.log(`Stable Blender paths: ${res}`)
             res.forEach(file => {
-                createInstalledCardAndAppend(stableContainer,file[0])
+                if (defaultBlender == file[1] && defaultBlender != undefined)
+                    createInstalledCardAndAppend(stableContainer, file[0], file[1], true)
+                else createInstalledCardAndAppend(stableContainer, file[0], file[1], false)
             })
         })
         .catch(err => console.log(err));
 
-    getExecutables(ltsPath)
+    getExecutablesFolder(ltsPath)
         .then(res => {
-            console.log(`LTS Blender paths: ${res}`);
             res.forEach(file => {
-                createInstalledCardAndAppend(ltsContainer,file[0])
+                if (defaultBlender == file[1] && defaultBlender != undefined)
+                    createInstalledCardAndAppend(ltsContainer, file[0], file[1], true)
+                else createInstalledCardAndAppend(ltsContainer, file[0], file[1], false)
             })
         })
         .catch(err => console.log(err));
 
-    getExecutables(experimentalPath)
+    getExecutablesFolder(experimentalPath)
         .then(res => {
-            console.log(`Experimental Blender paths: ${res}`);
             res.forEach(file => {
-                createInstalledCardAndAppend(expContainer,file[0])
+                if (defaultBlender == file[1] && defaultBlender != undefined)
+                    createInstalledCardAndAppend(expContainer, file[0], file[1], true)
+                else createInstalledCardAndAppend(expContainer, file[0], file[1], false)
             })
         })
         .catch(err => console.log(err));
+}
+
+function selectBlender(udPath, location) {
+    var data = {
+        empty: false,
+        location: location
+    }
+
+    fs.writeFile(path.join(udPath, 'defaultBlender.json'), JSON.stringify(data), (err) => {
+        if (err) console.log(err)
+    })
+
+}
+
+function setUpSelector(udpath, defaultBlender, id) {
+    const BlenderDownloads = path.join(udpath, 'BlenderDownloads');
+    const stablePath = path.join(BlenderDownloads, 'STABLE')
+    const ltsPath = path.join(BlenderDownloads, 'LTS')
+    const experimentalPath = path.join(BlenderDownloads, 'EXPERIMENTAL')
+
+    const optionContainer = document.getElementById(id).shadowRoot.querySelector('select')
+    function createOption(file) {
+        var newOption = document.createElement('option')
+        newOption.value = file[1]
+        newOption.innerText = file[0]
+        optionContainer.appendChild(newOption)
+    }
+    Promise.all(
+        [
+            getExecutablesFolder(stablePath)
+                .then(res => {
+                    res.forEach(file => {
+                        createOption(file)
+                    })
+                })
+                .catch(err => console.log(err)),
+            getExecutablesFolder(ltsPath)
+                .then(res => {
+                    res.forEach(file => {
+                        createOption(file)
+                    })
+                })
+                .catch(err => console.log(err)),
+            getExecutablesFolder(experimentalPath)
+                .then(res => {
+                    res.forEach(file => {
+                        createOption(file)
+                    })
+                })
+                .catch(err => console.log(err))
+        ]).then(() => {
+            if (defaultBlender != undefined) {
+                if (fs.existsSync(defaultBlender) && fs.existsSync(path.join(defaultBlender, 'blender.exe')))
+                    optionContainer.value = defaultBlender
+            }
+        })
+}
+
+function addBlenderVersionsIntempSelector(udPath, parent, location, name, treeItem) {
+    const BlenderDownloads = path.join(udPath, 'BlenderDownloads');
+    const stablePath = path.join(BlenderDownloads, 'STABLE')
+    const ltsPath = path.join(BlenderDownloads, 'LTS')
+    const experimentalPath = path.join(BlenderDownloads, 'EXPERIMENTAL')
+    function createOption(file) {
+        var newOption = document.createElement('div')
+        newOption.classList.add('option')
+        newOption.innerText = file[0]
+        parent.appendChild(newOption)
+        newOption.onclick = (e) => {
+            parent.innerHTML = `<h3>Creating ${name}.blend</h3>`
+            createNewFile('blend', location, name, parent, (err, res) => {
+                if (err) console.log(err);
+                else {
+                    createChild(treeItem, `${name}.blend`, path.join(location, `${name}.blend`))
+                }
+                if (parent.getRootNode().host != null)
+                    parent.getRootNode().host.remove()
+            }, path.join(file[1],'blender.exe'),path.join(udPath,'createBlenderFile.py'))
+        }
+    }
+    getExecutablesFolder(stablePath)
+        .then(res => {
+            res.forEach(file => {
+                createOption(file)
+            })
+        })
+        .catch(err => console.log(err))
+    getExecutablesFolder(ltsPath)
+        .then(res => {
+            res.forEach(file => {
+                createOption(file)
+            })
+        })
+        .catch(err => console.log(err))
+    getExecutablesFolder(experimentalPath)
+        .then(res => {
+            res.forEach(file => {
+                createOption(file)
+            })
+        })
+        .catch(err => console.log(err))
 }
 
 module.exports = {
@@ -243,6 +363,9 @@ module.exports = {
     dirWalk,
     createNewFile,
     download,
-    getBlenderExecutables
+    getBlenderExecutables,
+    selectBlender,
+    setUpSelector,
+    addBlenderVersionsIntempSelector
 }
 

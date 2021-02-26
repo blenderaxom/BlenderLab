@@ -1,0 +1,16 @@
+.custom-select {
+    select {
+        width: 170px;
+        position: relative;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: 6px;
+        background-color: $bg-light-hover;
+        color: #fff;
+        border: none;
+        &:focus {outline:0;}
+        &::-ms-expand { 
+            display: none; 
+        }
+    }
+}

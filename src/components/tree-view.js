@@ -27,8 +27,15 @@ class TreeView extends HTMLElement {
     }
 
     connectedCallback() {
+        const shad = this;
         var title = this.getAttribute("name")
         var location = this.getAttribute('location')
+        let newItem = document.createElement('temp-input');
+
+        function createInputOption(active){
+            newItem.setAttribute("location", active.getAttribute('location'));
+            newItem.setAttribute("treeId", shad.id);
+        }
 
         const titleElement = this.shadowRoot.getElementById("parentItemTitle")
         titleElement.classList.add('active-item')
@@ -65,18 +72,13 @@ class TreeView extends HTMLElement {
         var newBlendFileBtn = this.shadowRoot.getElementById("new-blend-file")
         var newFolderBtn = this.shadowRoot.getElementById("new-folder")
         var refreshDirBtn = this.shadowRoot.getElementById("refresh-dir")
-        newBlendFileBtn.addEventListener('click', (e) => {
-            var getActive = this.shadowRoot.querySelector('.active-item')
-            console.log(getActive.getAttribute('location'))
 
-        })
-        newFolderBtn.addEventListener('click', (e) => {
-            var getActive = this.shadowRoot.querySelector('.active-item');
+        function showInputOption(type){
+            var getActive = shad.shadowRoot.querySelector('.active-item');
             if (getActive.tagName == "SPAN" || getActive.tagName == "LI") {
-                let newItem = document.createElement('temp-input');
-                newItem.setAttribute("type", "folder");
-                newItem.setAttribute("location", getActive.getAttribute('location'));
-                newItem.setAttribute("treeId", this.id);
+                createInputOption(getActive)
+                newItem.setAttribute("type", type);
+                
                 if (getActive.classList.contains('caret')) {
                     if (getActive.classList.contains('caret-down') == false) {
                         getActive.classList.toggle("caret-down");
@@ -84,11 +86,20 @@ class TreeView extends HTMLElement {
                     }
                     newItem.setAttribute('parentId', getActive.nextElementSibling.id)
                     getActive.nextElementSibling.appendChild(newItem)
+                    newItem = document.createElement('temp-input'); 
                 } else {
                     newItem.setAttribute('parentId', getActive.id)
                     getActive.insertAdjacentElement('afterend', newItem)
+                    newItem = document.createElement('temp-input');
                 };
             }
+        }
+
+        newBlendFileBtn.addEventListener('click', (e) => {
+            showInputOption('blend')
+        })
+        newFolderBtn.addEventListener('click', (e) => {
+            showInputOption('folder')
 
         })
         refreshDirBtn.addEventListener('click', (e) => {
