@@ -53,6 +53,9 @@ ul {
         position: absolute;
         top: 5px;
         right: 5px;
+        padding: 0 5px;
+        border-radius: 7px;
+        background-color: $dark-bg;
         button{
             outline: none;
             background:none;

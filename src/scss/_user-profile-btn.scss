@@ -1,0 +1,43 @@
+#photoContainer{
+    display: flex;
+    flex-direction: row;
+    row-gap: 0.75rem;
+    color: $light-dark-color;
+    text-decoration: none;
+    border-radius: $border-radius;
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 25px;
+    overflow: hidden;
+    color: $light-text-color;
+    background-color: $dark-bg;
+    border-radius: 15px;
+    cursor: pointer;
+    &:hover{
+        color: $primary-color;
+    }
+    #actionContainer{
+        opacity: 0%;
+        transition: $transition; 
+    }
+    i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 15px;
+        font-size: 1.15rem;
+    }
+    span, .btn.btn-tertiary{
+        background-color: transparent;
+        padding: 7px 0 0 0;
+        color: white;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: start;
+        font-weight: bold;
+        font-size: $small-font-size; 
+    }
+}

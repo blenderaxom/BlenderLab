@@ -1,5 +1,6 @@
 const { app,contextBridge, ipcRenderer } = require('electron');
 const { getProjectList, getId } = require('./js/db');
+
 const { 
     getProjectDetails,
     writeProjectData, 
@@ -10,7 +11,8 @@ const {
     selectBlender,
     setUpSelector,
     addBlenderVersionsIntempSelector
- } = require('./js/helpers')
+ } = require('./js/helpers');
+const {getFirBConfig} = require('./js/firebase-helpers')
 
 // MAIN API TO INTERACT WITH DIFFERENT WINDOWS
 contextBridge.exposeInMainWorld('BL', {
@@ -96,5 +98,6 @@ contextBridge.exposeInMainWorld('BL', {
         var treeitem = document.getElementById(treeId).shadowRoot.getElementById(treeitemId)
         const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
         addBlenderVersionsIntempSelector(udpath,container,location,name,treeitem)
-    }
+    },
+    getFirebaseConfigs: async () => await getFirBConfig()
 });

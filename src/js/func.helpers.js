@@ -6,7 +6,6 @@ var tools = {
     },
     inlineCode: InlineCode,
     underline: Underline,
-    raw: RawTool,
     table: {
         class: Table,
     },
@@ -39,7 +38,6 @@ function setUpEditor(id) {
         placeholder: 'Start writing here!',
         onReady: () => {
             new Undo({ editor });
-            new DragDrop(editor);
         },
         tools: tools
     });
@@ -102,6 +100,4 @@ function parseEditorBlocks(output) {
     const parser = new edjsParser();
     return parser.parse(output);
 }
-
-
 

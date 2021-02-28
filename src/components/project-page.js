@@ -5,7 +5,8 @@ class ProjectPageTemplate extends HTMLElement {
         this.id = this.getAttribute("myId")
         // const title = this.getAttribute("title")
         const location = this.getAttribute("location")
-
+        
+        
         this.getContents(location)
     }
 
@@ -20,11 +21,15 @@ class ProjectPageTemplate extends HTMLElement {
 
         this.innerHTML = ''
 
+        this.innerHTML = '<div class="bg"><div class="loader"></div></div>'
+        setTimeout(()=>{
+            this.querySelector(".bg").remove()
+        }, 500)
         const contentDiv = document.createElement('div')
         contentDiv.classList.add('content-div')
-        this.insertAdjacentElement('beforeend',contentDiv)
+        this.insertAdjacentElement('beforeend', contentDiv)
 
-        
+
         const htmldata = parseEditorBlocks(data.description)
         var projectPageContent = document.createElement('div')
         projectPageContent.classList.add('project-page-content')
@@ -59,15 +64,15 @@ class ProjectPageTemplate extends HTMLElement {
         var editDecBtn = document.getElementById(editBtnId)
         let desEditor = null
         editDecBtn.addEventListener('click', (e) => {
-            if (desEditor==null){
-                desEditor = setUpEditorWithBlock(desId, data.description)
-            }
+            desEditor = setUpEditorWithBlock(desId, data.description)
             projectPageContent.style.display = "none";
             pageEditContent.style.display = "block";
             window.scrollTo(0, 0)
         })
 
         document.getElementById(cancelBtnId).addEventListener('click', (e) => {
+            desEditor.destroy()
+            desEditor = null
             projectPageContent.style.display = "block";
             pageEditContent.style.display = "none";
             window.scrollTo(0, 0)
@@ -80,16 +85,29 @@ class ProjectPageTemplate extends HTMLElement {
                     location, newTitle.value, JSON.stringify(outputData, null, 2)
                 )
                 this.getContents(location)
-
+                desEditor.destroy()
+                desEditor = null
             }).catch((error) => {
                 console.log('Saving failed: ', error)
             });
         })
         var Tree = document.createElement('tree-view')
-        Tree.id = "project-tree"+this.id
+        Tree.id = "project-tree" + this.id
         Tree.setAttribute("location", location)
         Tree.setAttribute("name", data.title)
         contentDiv.insertAdjacentElement('beforeend', Tree)
+
+        function removeEditor(e){
+            if (e.target != this) return
+            if (desEditor != null ) {
+                desEditor.destroy();
+                console.log('removed editor');
+            }
+            document.querySelectorAll(".ct").forEach(l=>l.remove())
+            this.removeEventListener("DOMNodeRemoved", removeEditor)
+        }
+
+        this.addEventListener('DOMNodeRemoved', removeEditor)
     }
 }
 

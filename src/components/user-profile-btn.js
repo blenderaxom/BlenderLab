@@ -3,9 +3,11 @@ userProfileBtn.innerHTML =
 `
     <link rel="stylesheet" href="../css/styles.css">
     <link href="../css/all.css" rel="stylesheet">
-    <div id="bg"></div>
-    <div id="blender-selector">
-        <h3>Select Blender Version</h3>
+    <div id="photoContainer">
+        <i class="fas fa-user"></i>
+        <div id="actionContainer">
+            <span id="LoginSignupBtn" class="btn btn-tertiary">Login/Signup</span>
+        </div>
     </div>
 `
 
@@ -17,20 +19,10 @@ class UserProfileButton extends HTMLElement {
     }
 
     connectedCallback() {
-        this.style.display = 'none'
-        setTimeout(()=>{this.style.display = 'block'}, 50)
-
-        const container = this.shadowRoot.getElementById('blender-selector')
-        const bg = this.shadowRoot.getElementById('bg')
-        const location = this.getAttribute('location')
-        const name = this.getAttribute('name')
-        const treeId = this.getAttribute('treeId')
-        const treeItemId = this.getAttribute('treeItemId')
-
-        BL.createBlendVerSelector(treeId, treeItemId, this.id, location,name)
-        bg.onclick = (e)=>{
-            this.remove()
-        }
+        this.addEventListener('click', (e)=>{
+            const loginPage = document.createElement('auth-page')
+            document.getElementById('main-contents').appendChild(loginPage)
+        })
     }
 }
 

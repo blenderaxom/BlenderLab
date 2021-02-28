@@ -50,6 +50,7 @@
     "@editorjs/header": "^2.6.1",
     "@editorjs/list": "^1.6.2",
     "@editorjs/underline": "^1.0.0",
+    "dotenv": "^8.2.0",
     "editorjs-paragraph-with-alignment": "^2.0.0",
     "editorjs-parser": "^1.5.3",
     "electron-squirrel-startup": "^1.0.0",
@@ -71,7 +72,6 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "editorjs-drag-drop": "^0.1.1",
     "editorjs-undo": "^0.1.4",
     "electron": "11.2.0",
     "zeltice-mt-downloader": "^1.1.3"

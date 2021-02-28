@@ -1,0 +1,100 @@
+#authPagebg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $dark-bg;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+
+    .formbg {
+        padding: 10px 30px;
+        height: 460px;
+        width: 370px;
+        border-radius: 7px;
+        background-color: $bg-light;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: $transition;
+        opacity: 0;
+
+        #backBtn {
+            margin-top: 50px;
+        }
+
+        overflow: hidden;
+
+        #form-selector {
+            transition: $transition;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+
+            .btn {
+                transition: $transition;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                background: none;
+                border: none;
+                padding: unset;
+                padding-bottom: 20px;
+                font-size: 35px;
+                color: $light-dark-color;
+                border-radius: 0;
+
+                &.active-btn {
+                    // border-bottom: 5px solid $primary-color;
+                    font-size: 40px;
+                    color: $light-text-color;
+                }
+            }
+
+            margin-bottom: 70px;
+            margin-top: 30px;
+        }
+
+        #formHolder {
+            transition: $transition;
+            transform: translate(180px, 0);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 810px;
+            gap: 50px;
+        }
+
+        form {
+            &#loginForm {
+                width: 310px;
+            }
+
+            &#signupForm {
+                width: 310px;
+            }
+
+            transition: $transition;
+
+            input {
+                background-color: $bg-light-hover;
+                margin-bottom: 10px;
+                padding: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                margin-top: 10px;
+                font-weight: bold;
+                font-size: 15px;
+            }
+
+            gap: 20px;
+        }
+    }
+}

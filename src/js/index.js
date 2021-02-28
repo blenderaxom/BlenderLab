@@ -1,6 +1,5 @@
-/* ADD SIDEBAR */
-// document.write(`<side-bar class="sidebar"></side-bar>`)
 const nav = document.querySelector(".navbar")
+const sidebarProfileBtn = document.getElementById('sidebarProfileBtn')
 const mainTab = document.getElementById("default-tab")
 let tabs = []
 
@@ -10,7 +9,7 @@ var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
     if (prevScrollpos > currentScrollPos) {
-        document.querySelector(".tabbar").style.top = "2.3rem";
+        document.querySelector(".tabbar").style.top = "2rem";
     } else {
         document.querySelector(".tabbar").style.top = "-50px";
     }
@@ -87,10 +86,12 @@ mainTab.click()
 
 // Move contents when expanding sidebar
 nav.addEventListener('mouseenter', () => {
+    sidebarProfileBtn.shadowRoot.getElementById('actionContainer').style.opacity = '100%'
     document.querySelector("body").style.padding = "5rem 1rem 0 15.4rem";
 })
 nav.addEventListener('mouseleave', () => {
     // showSidebar()
+    sidebarProfileBtn.shadowRoot.getElementById('actionContainer').style.opacity = '0'
     document.querySelector("body").style.padding = "5rem 2rem 0 8rem";
 })
 
