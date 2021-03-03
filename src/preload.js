@@ -33,6 +33,7 @@ contextBridge.exposeInMainWorld('BL', {
         ipcRenderer.invoke("toggle-max-window");
     },
     closeWindow: () => {
+        console.log('closing windiws');
         ipcRenderer.invoke("close-window");
     },
     createProject: (args) => {

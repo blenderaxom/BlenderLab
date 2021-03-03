@@ -1,27 +1,28 @@
 .btn {
     border-radius: $border-radius;
     color: $light-text-color;
-    height: 2.5rem;
-    padding: 0 1.5rem;
+    padding: 5px 15px;
     font-size: $small-font-size;
     font-weight: bold;
     display: inline;
     align-items: center;
     font-family: "Poppins";
-    border-style: solid;
-    border-width: 1px;
-    border-color: #ffffff;
     cursor: pointer;
+    border: 0;
     &:focus {
         outline: none;
     }
 }
 
 .btn-primary {
-    border-color: $light-shadow-color;
     color: $primary-text-color;
     background-color: $primary-color;
-    font-weight: 700;
+    font-weight: bold;
+    transition: $transition;
+    font-size: 14px;
+    &:hover{
+        background-color: $btn-primary-color-hover;
+    }
 }
 .btn-secondary {
     background-color: $btn-secondary-color;
@@ -54,8 +55,27 @@
 }
 
 .btn-icon {
-    padding-right: 0.3rem;
-    font-size: 15px;
+    padding: 0;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    transition: $transition;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: $primary-color;
+    border:0;
+    &:hover{
+        background-color: $btn-hover-color;
+    }
+}
+.btn-icon-secondary{
+    color: white;
+    &:hover{
+        background: rgba(255, 255, 255, 0.212);
+    }
 }
 
 .btn-only-icon {

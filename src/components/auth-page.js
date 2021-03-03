@@ -5,6 +5,7 @@ authPage.innerHTML =
     <link href="../css/all.css" rel="stylesheet">
     <div id="authPagebg">
         <div class="loader"></div>
+    
         <div class="formbg">
             <div id="form-selector">
                 <button class="btn active-btn" id="loginFormSelBtn">Login</button>
@@ -44,6 +45,7 @@ class AuthPage extends HTMLElement {
         this.shadowRoot.querySelector('.formbg').style.opacity = '0';
     }
     connectedCallback() {
+        const shad = this
         const formBg = this.shadowRoot.querySelector('.formbg')
         const loader = this.shadowRoot.querySelector('.loader')
         setTimeout(()=>{
@@ -108,8 +110,11 @@ class AuthPage extends HTMLElement {
                 console.log(res);
                 loginBtn.innerText = 'Login'
                 removeLoader('login-loader')
+                this.remove()
+                toastr.success(`Hi ${res.displayName}, Welcome back!`,'Login Successful')
             }).catch(err=>{
                 loginBtn.disabled = false
+                toastr.error(`Ooh, ${err.code}`)
                 console.log(err);
                 loginBtn.innerText = 'Login'
                 removeLoader('login-loader')
@@ -128,9 +133,21 @@ class AuthPage extends HTMLElement {
             ).then(res=>{
                 console.log('signed up successfully');
                 console.log(res);
-                signupBtn.innerText = 'Sign Up'
-                signupBtn.disabled= false;
-                removeLoader('signin-loader')
+                res.sendEmailVerification()
+                .then(function() {
+                    toastr.info(`Verification email sent!`)
+                    console.log('verification email sent');
+                    var verifPage = document.createElement('verification-page')
+                    document.body.append(verifPage)
+                    signupBtn.innerText = 'Sign Up'
+                    signupBtn.disabled= false;
+                    removeLoader('signin-loader')
+                    shad.remove()
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+                
             }).catch(err=>{
                 console.log(err);
                 signupBtn.innerText = 'Sign Up'

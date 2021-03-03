@@ -34,7 +34,6 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
   console.log(app.getPath('userData'))
-
 };
 
 // This method will be called when Electron has finished
@@ -97,7 +96,9 @@ ipcMain.handle('toggle-max-window', async (event, ...args) => {
 
 // Below function handles the custom close button
 ipcMain.handle('close-window', async (event, ...args) => {
-  CurWindow().close();
+  const curWindow = CurWindow()
+  curWindow.destroy()
+  // curWindow.close();
 })
 
 /* ----------------------- NEW PROJECT WINDOW ------------------ */

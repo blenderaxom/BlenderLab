@@ -1,22 +1,22 @@
 .navbar {
     top: 2.3rem;
-    left: 1rem;
-    bottom: 1.4rem;
+    left: 0rem;
+    bottom: 0;
     width: 92px;
     position: fixed;
-    background-color: $bg-light;
     color: $light-text-color;
     transition: width $transition;
     z-index: 2;
     // box-shadow: 5px 5px 10px $dark-shadow-color, -5px -5px 10px $light-shadow-color;
-    border-radius: 20px;
-    border: none;
-    border-color: $light-shadow-color;
+    // border-radius: 20px;
+    border-right: 2px solid;
+    border-color: $border-color;
     user-select: none;
-    transition: 200ms ease;
-    overflow: auto;
+    transition: width 200ms ease;
+    overflow: hidden;
+    background-color: $dark-bg;
     &:hover {
-        background-color: $bg-light-hover;
+        // background-color: $bg-light-hover;
         width: 13rem;
          .logo-svg {
             transform: rotate(360deg);
@@ -34,17 +34,21 @@
     height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
-    justify-content:space-between;
-    transition: $transition;
+    transition: width $transition;
     padding-bottom: 1rem;
     &:hover {
         overflow-y: auto;
     }
     @include webkit();
     .bottomItems{
+        overflow: hidden;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        gap: 5px;
+        align-content: flex-end;
+        bottom: 1rem;
+        position: absolute;
+        width: 100%;
     }
 }
 
@@ -53,35 +57,35 @@
     flex-direction: row;
     row-gap: 0.75rem;
     align-items: center;
-    color: $light-dark-color;
+    color: white;
     text-decoration: none;
     border-radius: $border-radius;
-    transition: $transition;
+    transition: width $transition, background-color 100ms;
     padding: 0.75rem 0.6rem;
     margin: 0 1.5rem 0 1.5rem;
     border-style: solid;
     border-width: 1px;
     border-color: transparent;
+    
     i {
         width: 0.4rem;
         font-size: 1.15rem;
     }
     &:hover {
-        color: $light-text-color;
+        background-color: $btn-hover-color;
+        color: $primary-color;
     }
 }
 .link-text {
     opacity: 0%;
     font-weight: bold;
     margin-left:2rem;
+    font-size: 15px;
     transition: $transition;
-    font-size: $small-font-size;
 }
 
 .active {
-    border-color: $dark-bg;
     color: $primary-color;
-    background-color: $dark-bg;
     &:hover {
         color: $primary-color;
     }

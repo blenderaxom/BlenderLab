@@ -1,0 +1,251 @@
+.pic-container {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    font-size: 1rem;
+    overflow: hidden;
+    position: relative;
+    align-items: stretch;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+
+    &.large .large {
+        width: 150px;
+        height: 150px;
+        font-size: 3rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    &.medium{
+        width: 100px;
+        height: 100px;
+        .changeDPContainer{
+            background: rgba(0, 0, 0, 0.301);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: auto;
+            color: white;
+            
+        }
+        .medium{
+            width: 100px;
+            height: 100px;
+        }
+    }
+}
+
+#profile-header {
+    margin-bottom: 44px;
+    display: flex;
+    flex-direction: row;
+
+    .left-container {
+        flex-basis: 0;
+        flex-grow: 1;
+        margin-right: 30px;
+        flex-shrink: 0;
+    }
+
+    section {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        align-items: stretch;
+
+        &.right-container {
+            flex-basis: 30px;
+            flex-grow: 2;
+            flex-shrink: 1;
+            min-width: 0;
+
+            .right-top {
+                margin-bottom: 20px;
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                flex-shrink: 1;
+                min-width: 0;
+
+                .settings-container {
+                    margin-left: 5px;
+                    transition: $transition;
+                    border-radius: 5px;
+
+                    &:hover {
+
+                        background-color: $btn-hover-color;
+                    }
+
+                    button {
+                        cursor: pointer;
+                        padding: 8px;
+                        background: 0;
+                        color: $light-text-color;
+                        border: 0;
+                        outline: none;
+
+                        &:hover {
+                            color: $primary-color;
+                        }
+                    }
+                }
+
+                #username {
+                    display: block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    font-weight: normal;
+                    margin: -5px 0 -6px;
+                    color: white;
+                }
+
+                .edit-button {
+                    margin-left: 20px;
+                    padding: 5px 9px;
+                    text-align: center;
+                    display: block;
+                    cursor: pointer;
+                    border-radius: 20px;
+                    background-color: $bg-light;
+                    transition: $transition;
+                    font-weight: bold;
+                    border: 2px solid $primary-color;
+                    color: $primary-color;
+                    font: 14px;
+
+                    &:hover {
+                        background-color: $btn-hover-color;
+                    }
+                }
+            }
+
+            .right-middle {
+                margin-bottom: 20px;
+                display: flex;
+                flex-direction: row;
+
+                .middle-item {
+                    font-size: 16px;
+                    margin-right: 40px;
+
+                    .cont .counter {
+                        font-weight: bold;
+                        color: white;
+                    }
+
+                    .cont.follow {
+                        cursor: pointer;
+                    }
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+
+            .right-bottom {
+                display: flex;
+                flex-direction: column;
+                font-size: 16px;
+                line-height: 24px;
+                max-height: 100px;
+
+                #full-name {
+                    margin: 0;
+                    padding: 0;
+                    color: white;
+                    font-size: inherit;
+                }
+
+                span {
+                    text-overflow: ellipsis;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: $primary-color;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.editProfilePopup {
+    display: none;
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(91, 112, 131, 0.4);
+}
+
+.pop-up-card {
+    border-radius: 20px;
+    z-index: 10001;
+    background-color: $dark-bg;
+    margin: 5% auto;
+    /* 15% from the top and centered */
+    width: 60%;
+    overflow: hidden;
+    .pop-up-header {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-shrink: 1;
+        min-width: 0;
+        width: 100%;
+        justify-content: space-between;
+        border-bottom: 2px solid $border-color;
+        padding: 10px;
+        div {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+            h1{font-size: 20px;color: white;}
+        }
+    }
+
+    .pop-up-body {
+        height: 70vh;
+        overflow: auto;
+    }
+}
+.profileEditContainer{
+    padding: 10px 20px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

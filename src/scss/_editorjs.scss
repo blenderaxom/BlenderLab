@@ -15,18 +15,7 @@
 }
 
 // New Project description editor area 
-.editor-area {
-    cursor: text;
-    color: $light-text-color;
-    border-radius: 10px;
-    padding: 3px 20px;
-    margin-bottom: 15px;
-    height: 120px;
-    overflow-x: auto;
-    overflow-y: auto;
-    box-shadow: inset 3px 3px 8px $dark-shadow-color, inset -3px -3px 8px $light-shadow-color;
-    @include webkit();
-}
+
 .ce-inline-tool-input,
 .ce-inline-toolbar__dropdown,
 .ce-conversion-toolbar__label, 

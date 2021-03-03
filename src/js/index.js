@@ -9,7 +9,7 @@ var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
     var currentScrollPos = window.pageYOffset;
     if (prevScrollpos > currentScrollPos) {
-        document.querySelector(".tabbar").style.top = "2rem";
+        document.querySelector(".tabbar").style.top = "1.7rem";
     } else {
         document.querySelector(".tabbar").style.top = "-50px";
     }
@@ -87,12 +87,12 @@ mainTab.click()
 // Move contents when expanding sidebar
 nav.addEventListener('mouseenter', () => {
     sidebarProfileBtn.shadowRoot.getElementById('actionContainer').style.opacity = '100%'
-    document.querySelector("body").style.padding = "5rem 1rem 0 15.4rem";
+    document.querySelector("body").style.margin = "4.5rem 0 0 13.2rem";
 })
 nav.addEventListener('mouseleave', () => {
     // showSidebar()
     sidebarProfileBtn.shadowRoot.getElementById('actionContainer').style.opacity = '0'
-    document.querySelector("body").style.padding = "5rem 2rem 0 8rem";
+    document.querySelector("body").style.margin = "4.5rem 0 0 6rem";
 })
 
 // Open new project window when new project button is clicked

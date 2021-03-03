@@ -1,19 +1,23 @@
 #photoContainer{
     display: flex;
     flex-direction: row;
+    align-items: center;
     row-gap: 0.75rem;
     color: $light-dark-color;
     text-decoration: none;
     border-radius: $border-radius;
     gap: 10px;
-    margin-left: 20px;
+    margin-left: 25px;
     margin-right: 25px;
     overflow: hidden;
     color: $light-text-color;
-    background-color: $dark-bg;
-    border-radius: 15px;
+    border-radius: $border-radius;
+    padding: 5px 0;
     cursor: pointer;
+    background-color: $dark-bg;
+    transition: $transition;
     &:hover{
+        background-color: $btn-hover-color;
         color: $primary-color;
     }
     #actionContainer{
@@ -24,20 +28,26 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        padding: 15px;
-        font-size: 1.15rem;
+        padding: 20px;
     }
-    span, .btn.btn-tertiary{
+    span{
         background-color: transparent;
-        padding: 7px 0 0 0;
-        color: white;
+        color: $primary-color;
         margin: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: start;
         font-weight: bold;
-        font-size: $small-font-size; 
+        font-size: 15px; 
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .mini{
+        width: 40px;
+        height: 40px;
+        max-height: 50px;
+        font-size: 1rem;
+        border-radius: 50%;
     }
 }

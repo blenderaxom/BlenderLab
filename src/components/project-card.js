@@ -30,7 +30,7 @@ class ProjectCard extends HTMLElement {
             
             var id = await addNewTab(name)
             
-            document.body.insertAdjacentHTML('afterbegin', `
+            document.getElementById('main-contents').insertAdjacentHTML('afterbegin', `
             <project-page myId="${id}" location="${location}">
             </project-page>`)
 

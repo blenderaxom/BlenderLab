@@ -98,3 +98,49 @@
         }
     }
 }
+
+#verBg {
+    user-select: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1001;
+    background-color: $dark-bg;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .pagebg {
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+        a {
+            padding: unset;
+            text-decoration: none;
+            color: grey;
+            transition: $transition;
+            &:hover{
+                color: lightblue;
+            }
+        }
+        h1{
+            padding: 20px;
+        }
+        h3{
+            padding: 5px;
+        }
+        .loader{
+            position: relative;
+        }
+        div, button {
+            margin: 10px;
+        }
+    }
+}

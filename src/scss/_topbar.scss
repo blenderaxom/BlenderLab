@@ -21,6 +21,8 @@
     background: $dark-bg;
     -webkit-app-region: drag;
     z-index: 2000;
+    border-bottom: 2px solid $border-color;
+    
 }
 .titlebar-name {
     color: $light-dark-color;
@@ -28,6 +30,7 @@
     padding-left: 10px;
 }
 .menubar-btn {
+    margin-right: 7px;
     border-style: none;
     /* margin: 3px; */
     color: #777;
@@ -44,7 +47,7 @@
 }
 .close {
     margin-top: 5px;
-    margin-right: 5px;
+    margin-right: 15px;
     &:hover {
         color: #ecf0f3;
         background-color: rgba(238, 58, 58, 0.835);

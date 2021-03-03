@@ -1,5 +1,5 @@
 $font-family: 'Poppins', sans-serif;
-$text-color: #fff;
+$text-color: rgba(255, 255, 255, 0.884);
 $text-secondary: rgba(255, 255, 255, 0.479);
 $primary-color: #F2AE2E;
 $primary-light-color: #ffb85cbe;
@@ -10,15 +10,15 @@ $shadow-color: rgba(0, 0, 0, 0.301);
 $z-index: 1;
 $normal-font-size: 1rem;
 $small-font-size: 12px;
-$border-radius: 0.6rem;
+$border-radius: 30px;
 $normal-font-size: 1rem;
 $small-font-size: 12px;
-$border-radius: 0.6rem;
 $transition: 200ms ease;
 
-$dark-bg: #212426;
-$bg-light: #272B2F;
-$bg-light-hover: #2D3136;
+$dark-bg: #15202B;
+$body-bg-hover: #19263352;
+$bg-light: #192734;
+$bg-light-hover: #1f2f3d;
 $light-shadow-color: #3F3F3F;
 $dark-shadow-color: #101010;
 $button-roundness: 13px;
@@ -26,11 +26,13 @@ $card-roundness: 15px;
 $primary-text-color: #101010;
 $light-text-color: #b4b4b4;
 $light-dark-color: rgba(153, 153, 153, 0.548);
-
+$border-color: #1E2C38; 
+$card-border-color: #283644; 
 // Button color variables
 /* BUTTON COLORS */
 $btn-primary-color: #6c5dd3;
-$btn-primary-color-hover: #5648b3;
+$btn-primary-color-hover: #ee9d33;
+$btn-hover-color: rgba(255, 174, 0, 0.109);
 
 $btn-secondary-color: #38393d;
 $btn-secondary-color-hover: #353333;
@@ -51,7 +53,7 @@ $entry-bg-color: rgb(43, 48, 56);
 
     &::-webkit-scrollbar-thumb {
         border-radius: $border-radius;
-        background-color: $light-dark-color;
+        background-color: $card-border-color;
     }
 
     

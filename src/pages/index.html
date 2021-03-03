@@ -3,20 +3,23 @@
 
 <head>
   <meta charset="UTF-8">
+  
   <title>BlenderLab v0.1</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link href="../css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="../scripts/highlight.js/atom-one-dark-reasonable.css">
+  <link rel="stylesheet" href="../scripts/toastr/toastr.min.css">
 </head>
 
 <body>
   <topbar-topbar title-name="BlenderLab"></topbar-topbar>
-  <div id="main-contents">
-    <div class="tabbar">
-      <div class="tabbar-contents">
-        <a href="#" class="Home tabbar-main" id="default-tab">Home</a>
-      </div>
+  
+  <div class="tabbar">
+    <div class="tabbar-contents">
+      <a href="#" class="Home tabbar-main" id="default-tab">Home</a>
     </div>
+  </div>
+  <div id="main-contents">
     <div class="navbar">
       <nav class="navbar-nav">
         <div class="logo">
@@ -81,6 +84,9 @@
         <div class="card-body">
           <div class="project-list"></div>
         </div>
+        <div class="show-more-btn">
+          Show more
+        </div>
       </div>
     </div>
 
@@ -126,12 +132,15 @@
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-firestore.js"></script>
-  
+  <script src="../scripts/observable-slim.min.js"></script>
   <script src="../js/firebase_func.js"></script>
 
   <script src="../scripts/highlight.js/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <script src="../scripts/jquery/jquery.min.js"></script>
+
+  <!-- Toast setup -->
+  <script src="../scripts//toastr/toastr.min.js"></script>
 
   <!-- Editor.js configs -->
   <script src="../scripts/@editorjs/editor.js"></script>
@@ -148,6 +157,8 @@
   <script src="../scripts/@editorjs/undo/bundle.js"></script>
   <!-- <script src="../scripts/@editorjs/paragraph/bundle.js"></script> -->
 
+  <script src="../js/configure_imps.js"></script>
+
   <script src="../js/func.helpers.js"></script>
   <script src="../js/index.js"></script>
   <script src="../js/installs-page.js"></script>
@@ -162,6 +173,8 @@
   <script src="../components/temp-blen-selector.js"></script>
   <script src="../components/user-profile-btn.js"></script>
   <script src="../components/auth-page.js"></script>
+  <script src="../components/verification-page.js"></script>
+  <script src="../components/profile_page.js"></script>
 </body>
 
 </html>
