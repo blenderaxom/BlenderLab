@@ -2,7 +2,6 @@ const tempInputBlendSelector = document.createElement('template');
 tempInputBlendSelector.innerHTML =
 `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div id="bg"></div>
     <div id="blender-selector">
         <h3>Select Blender Version</h3>

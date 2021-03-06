@@ -74,7 +74,6 @@ document.getElementById("defaultOpen").click();
 // Set the main tab active when we click on it
 mainTab.addEventListener('click', (e) => {
     saveScrollPos()
-    document.querySelector(".tabbar-main").classList.remove("tab-active")
     mainTab.classList.add("tab-active")
     setTabContent(mainTab.classList[0])
     scrollToPos(parseFloat(mainTab.getAttribute("scrollPos")))
@@ -87,12 +86,12 @@ mainTab.click()
 // Move contents when expanding sidebar
 nav.addEventListener('mouseenter', () => {
     sidebarProfileBtn.shadowRoot.getElementById('actionContainer').style.opacity = '100%'
-    document.querySelector("body").style.margin = "4.5rem 0 0 13.2rem";
+    document.querySelector("body").style.margin = "4rem 0 0 13.2rem";
 })
 nav.addEventListener('mouseleave', () => {
     // showSidebar()
     sidebarProfileBtn.shadowRoot.getElementById('actionContainer').style.opacity = '0'
-    document.querySelector("body").style.margin = "4.5rem 0 0 6rem";
+    document.querySelector("body").style.margin = "4rem 0 0 6rem";
 })
 
 // Open new project window when new project button is clicked
@@ -128,4 +127,20 @@ function scrollToPos(pos) {
         window.scrollTo(0, pos);
     }, 1);
     // window.scrollTo(0, 145)
+}
+
+const getCurrentTab = () => new Promise((r,re)=>{
+    const tabbarItem = document.querySelectorAll("tab-item")
+    tabbarItem.forEach(l=>{
+        if (l.shadowRoot.querySelector('.tabbar-item').classList.contains("tab-active")) {
+            return r(l)
+        }
+    })
+    return r(mainTab)
+    
+})
+
+async function closeCurrentTab(){
+    var activeTab = await getCurrentTab()
+    if (activeTab!=mainTab)activeTab.closeTab();
 }

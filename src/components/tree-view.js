@@ -2,12 +2,11 @@ const treeView = document.createElement('template');
 const s =
     `
 <link rel="stylesheet" href="../css/styles.css">
-<link href="../css/all.css" rel="stylesheet">
 <div class="tree">
     <div id="tree-tools-container">
-        <button id="new-blend-file"><i class="fas fa-file-medical"></i></button>
-        <button id="new-folder"><i class="fas fa-folder-plus"></i></button>
-        <button id="refresh-dir"><i class="fas fa-sync-alt"></i></button>
+        <button id="new-blend-file"><span class="material-icons md-18">note_add</span></button>
+        <button id="new-folder"><i class="material-icons md-18">create_new_folder</i></button>
+        <button id="refresh-dir"><i class="material-icons md-18">refresh</i></button>
     </div>
     <ul class="TreeView">
         <h4 id="title"></h4>
@@ -40,7 +39,7 @@ class TreeView extends HTMLElement {
         const titleElement = this.shadowRoot.getElementById("parentItemTitle")
         titleElement.classList.add('active-item')
         titleElement.setAttribute('location', location)
-        titleElement.innerHTML = `<i class="fas fa-folder"></i>${title}`
+        titleElement.innerHTML = `<i class="material-icons md-18">account_tree</i>${title}`
 
         titleElement.addEventListener("click", function () {
             this.parentElement.querySelector(".nested").classList.toggle("active");

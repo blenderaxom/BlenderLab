@@ -2,7 +2,6 @@ const blendDownCard = document.createElement('template');
 blendDownCard.innerHTML = 
 `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div class="card download-card">
       <div class="header" id="header"></div>
       <br>

@@ -258,3 +258,15 @@ bpy.ops.wm.save_as_mainfile(filepath=path+"\\\\"+filename+".blend")
   })
 }
 createBlenderCreatorPythonFile()
+
+ipcMain.handle('set-progress', async(event,args)=>{
+  if (args[0]=="show"){
+    var val = (args[1] - 0)/100
+    console.log(val);
+    mainWindow.setProgressBar(val)
+  } else if (args[0]=="unknown") {
+    mainWindow.setProgressBar(2)
+  } else {
+    mainWindow.setProgressBar(-1)
+  }
+})

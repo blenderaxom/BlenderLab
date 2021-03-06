@@ -3,6 +3,7 @@ const path = require('path');
 const { v4: uuidv4 } = require("uuid");
 var mtd = require('zeltice-mt-downloader')
 const extract = require('extract-zip')
+const { ipcRenderer } = require('electron');
 
 async function getProjectDetails(p) {
     var finalPath = path.join(p, "project.blenderlab")
@@ -26,7 +27,7 @@ async function createParent(n, file, location) {
     var newParent = document.createElement('li')
     newParent.innerHTML =
         `
-        <span class="caret" location="${location}"><i class="fas fa-folder"></i>${file}</span>
+        <span class="caret" location="${location}"><i class="material-icons md-18">folder</i>${file}</span>
     `
     var p = document.createElement('ul')
     p.id = uuidv4()
@@ -51,7 +52,7 @@ function createChild(element, file, location) {
         newChild.innerHTML =
             `<img src="../images/svg/blenderlogo.svg" class="svg-btn-icon"> ${file}`
     }
-    else { newChild.innerHTML = `<i class="fas fa-file"></i> ${file}` }
+    else { newChild.innerHTML = `<i class="material-icons md-18">description</i> ${file}` }
     element.insertAdjacentElement('beforeend', newChild)
 }
 
@@ -129,10 +130,15 @@ async function extractFile(sourcePath, extractPath) {
     try {
         console.log(`Extracting ${sourcePath} to ${extractPath}`)
         await extract(sourcePath, { dir: extractPath })
+        ipcRenderer.invoke('set-progress', ['done',"0"])
         console.log('Extraction complete')
     } catch (err) {
         console.log(err)
     }
+}
+
+function sendNotification(type,message){
+    document.body.dispatchEvent(new CustomEvent('notify', { detail: {type:type ,message: message}}))
 }
 
 async function download(link, shadow, finalPath, userDataPath, type) {
@@ -147,11 +153,15 @@ async function download(link, shadow, finalPath, userDataPath, type) {
     var interval = null;
     cancelBtn.style.display = 'block'
     downloadBtn.style.display = 'none'
-
+    ipcRenderer.invoke('set-progress', ['unknown',"0"])
+    let event;
     var options = {
         onStart: function (meta) {
+            sendNotification('info','Download started')
+            
             console.log('Download started', meta)
             cancelBtn.addEventListener('click', (e) => {
+                sendNotification('info','Download cancelled')
                 console.log('destroy');
                 meta.threads.forEach(l => {
                     l.destroy()
@@ -162,20 +172,25 @@ async function download(link, shadow, finalPath, userDataPath, type) {
                 var percentage = meta.threads[0].position * 200 / total
                 console.log(percentage)
                 bar.style.width = percentage + "%"
+                ipcRenderer.invoke('set-progress', ['show',percentage])
             }
             interval = setInterval(logme, 1000)
 
         },
         onEnd: function (err, result) {
+            ipcRenderer.invoke('set-progress', ['unknown',"0"])
             cancelBtn.style.display = 'none';
             downloadBtn.style.display = 'block';
             clearInterval(interval);
-            bar.style.display = "none";
+            progressBar.style.display = "none";
             if (err) {
                 console.error(err);
+                ipcRenderer.invoke('set-progress', ['done',"0"])
                 bar.style.width = "0" + "%";
+                sendNotification('error','Oops, there was an error downloading the file.')
             }
             else {
+                sendNotification('success','Download Complete!')
                 bar.style.width = "100" + "%";
                 console.log(result);
                 const blendDirPath = path.join(userDataPath, 'BlenderDownloads')

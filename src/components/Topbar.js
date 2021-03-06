@@ -2,16 +2,15 @@ const TopbarTemplate = document.createElement('template');
 TopbarTemplate.innerHTML = 
 `
 <link rel="stylesheet" href="../css/styles.css">
-<link href="../css/all.css" rel="stylesheet">
 <div class="topbar-container">
     <div id="menu-bar">
         <div class="left" role="menu">
             <h5 class="titlebar-name"></h5>
         </div>
         <div class="right">
-            <button class="menubar-btn mini" id="minimize-btn"><i class="fas fa-minus"></i></button>
-            <button class="menubar-btn maxi" id="max-unmax-btn"><i class="far fa-square"></i></button>
-            <button class="menubar-btn close" id="close-btn"><i class="close-icon fas fa-times"></i></button>
+            <button class="menubar-btn mini" id="minimize-btn"><i class="material-icons md-18">remove</i></button>
+            <button class="menubar-btn maxi" id="max-unmax-btn"><i class="material-icons md-18">crop_square</i></button>
+            <button class="menubar-btn close" id="close-btn"><i class="material-icons md-18">close</i></button>
         </div>
     </div>
 </div>

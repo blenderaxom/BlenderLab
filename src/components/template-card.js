@@ -2,7 +2,6 @@ const templateCard = document.createElement('template');
 templateCard.innerHTML = 
 
 `<link rel="stylesheet" href="../css/styles.css">
-<link href="../css/all.css" rel="stylesheet">
 <div class="template-card-item">
     <div class="card-header name"></div>
     <div class="card-body"></div>

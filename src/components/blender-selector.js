@@ -2,7 +2,6 @@ const blendSelector = document.createElement('template');
 blendSelector.innerHTML =
     `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div class="custom-select">
         <select>
         </select>

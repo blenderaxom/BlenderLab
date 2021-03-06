@@ -2,7 +2,6 @@ const veriPage = document.createElement('template');
 veriPage.innerHTML =
     `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div id="verBg">
         <div class="pagebg">
             <h1>Please verify your email</h1>
@@ -10,7 +9,7 @@ veriPage.innerHTML =
             <a id="resendBtn" href="#">Resend Verification Email</a>
             <div class="loader"></div>
 
-            <button class="btn btn-tertiary" id="cancelBtn"><i class="fas fa-times"></i> Cancel</button
+            <button class="btn btn-tertiary btn-large" id="cancelBtn"><i class="material-icons md-18">close</i> Cancel</button
         </div>
     </div> 
 `
@@ -40,6 +39,7 @@ class VerificationPage extends HTMLElement {
                 clearInterval(interval)
                 console.log('email verified');
                 shad.remove()
+                openProfilePage()
                 toastr.success(`Email Verified!`, `Welcome ${user.displayName}!`)
             }
         }, 1000)

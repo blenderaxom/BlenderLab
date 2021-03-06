@@ -7,8 +7,8 @@
     text-decoration: none;
     border-radius: $border-radius;
     gap: 10px;
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
     overflow: hidden;
     color: $light-text-color;
     border-radius: $border-radius;
@@ -16,6 +16,7 @@
     cursor: pointer;
     background-color: $dark-bg;
     transition: $transition;
+    max-height: 50px;
     &:hover{
         background-color: $btn-hover-color;
         color: $primary-color;
@@ -24,11 +25,16 @@
         opacity: 0%;
         transition: $transition; 
     }
+    img {
+        width: 50px;
+        height: 50px;
+    }
     i {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        font-size: 45px;
+        margin-left: 5px;
     }
     span{
         background-color: transparent;
@@ -42,12 +48,5 @@
         font-size: 15px; 
         white-space: nowrap;
         text-overflow: ellipsis;
-    }
-    .mini{
-        width: 40px;
-        height: 40px;
-        max-height: 50px;
-        font-size: 1rem;
-        border-radius: 50%;
     }
 }

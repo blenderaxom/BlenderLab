@@ -2,10 +2,9 @@ const userProfileBtn = document.createElement('template');
 userProfileBtn.innerHTML =
     `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div id="photoContainer">
         <img src="#" alt="Avatar" class="avatar mini" id="profilepic">
-        <i class="avatar mini fas fa-user"></i>
+        <i class="material-icons md-24">account_circle</i>
         <div id="actionContainer">
             <span id="LoginSignupBtn">Login/Signup</span>
         </div>
@@ -24,7 +23,9 @@ class UserProfileButton extends HTMLElement {
         let loggedIn = null
         const textContainer = this.shadowRoot.getElementById('LoginSignupBtn')
         const avatar = this.shadowRoot.getElementById('profilepic')
+        const photoContainer = this.shadowRoot.getElementById('photoContainer')
         const defaultAvatar = this.shadowRoot.querySelector('i')
+
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 loggedIn = true;
@@ -51,16 +52,7 @@ class UserProfileButton extends HTMLElement {
 
         this.addEventListener('click', async (e) => {
             if (loggedIn == true) {
-                var user = firebase.auth().currentUser
-                var id = await addNewTab(user.displayName)
-
-                const profilePage = document.createElement('profile-page')
-                profilePage.setAttribute('uid',user.uid)
-                profilePage.setAttribute('myId', id)
-                profilePage.id = id
-                profilePage.classList.add('tabcontent')
-                document.getElementById('main-contents').appendChild(profilePage)
-                setTabContent(id)
+                openProfilePage()
             } else {
                 const loginPage = document.createElement('auth-page')
                 document.getElementById('main-contents').appendChild(loginPage)

@@ -35,7 +35,7 @@ class ProjectPageTemplate extends HTMLElement {
         projectPageContent.classList.add('project-page-content')
         projectPageContent.innerHTML =
             `<div>${htmldata}</div>
-        <div class="btn edit-description-btn" id="${editBtnId}"><i class="fas fa-marker"></i> Edit</div>`
+        <div class="btn edit-description-btn" id="${editBtnId}"><i class="material-icons md-18">edit</i> Edit</div>`
 
         contentDiv.insertAdjacentElement('beforeend', projectPageContent)
 

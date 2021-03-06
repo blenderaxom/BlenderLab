@@ -2,7 +2,6 @@ const authPage = document.createElement('template');
 authPage.innerHTML =
     `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div id="authPagebg">
         <div class="loader"></div>
     
@@ -16,7 +15,7 @@ authPage.innerHTML =
                     <input id="loginEmail" placeholder="email" type="email" required>
                     <input id="loginPassword" placeholder="password" type="password" required>
                     
-                    <button type="submit" class="btn btn-primary block-tab" id="loginBtn">
+                    <button type="submit" class="btn btn-primary btn-large block-tab" id="loginBtn">
                         <div id="login-loader" class="loader mini"></div>
                     </button>
                 </form>
@@ -24,13 +23,13 @@ authPage.innerHTML =
                     <input id="signupUsername" placeholder="username" type="text" required>
                     <input id="signupEmail" placeholder="email" type="email" required>
                     <input id="signupPassword" placeholder="password" type="password" required>
-                    <button type="submit" class="btn btn-primary block-tab" id="signUpBtn">
+                    <button type="submit" class="btn btn-primary btn-large block-tab" id="signUpBtn">
                         <div id="signup-loader" class="loader mini"></div>
                     </button>
                 </form>
             </div>
             
-            <button class="btn btn-tertiary" id="backBtn"><i class="fas fa-chevron-left"></i> Back</button
+            <button class="btn btn-outline" id="backBtn"><i class="material-icons md-18">arrow_back_ios</i> Back</button
         </div>
     </div> 
 `

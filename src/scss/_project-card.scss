@@ -1,9 +1,7 @@
 .project-list-container {
     width: 23rem;
-    height: 450px;
     user-select: none;
     padding: unset;
-    padding-left: 5px;
     overflow: hidden;
     background-color: $bg-light;
     .card-header  {
@@ -12,7 +10,7 @@
         h4 {
             color: white;
             width: fit-content;
-            padding: 5px 10px;
+            padding: 5px 20px;
             border-radius: $border-radius;
             font-size: 19px;
         }
@@ -29,7 +27,7 @@
         height: 47px;
         cursor: pointer;
         color: $primary-color;
-        padding-left: 10px;
+        padding-left: 20px;
         font-size: 14px;
         &:hover{
             background-color: $bg-light-hover;
@@ -45,10 +43,13 @@ p-c {
 .pc{
     overflow: hidden;
     transition: $transition;
-    padding: 15px;
+    padding: 15px 25px;
     border-bottom: 1px solid $card-border-color;
     background-color: $bg-light;
     transition: $transition;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
     // box-shadow: 3px 3px 6px #cbced1, -3px -3px 6px #ffffff;
     &:hover {
         background-color: $bg-light-hover;

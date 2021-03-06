@@ -1,6 +1,6 @@
 let db;
 var userData = {};
-let userGlobal = ObservableSlim.create(userData, true, function (changes) {});
+let userGlobal = ObservableSlim.create(userData, true, function (changes) { });
 
 let unListenProfileData = () => { };
 const config = async () => {
@@ -49,6 +49,7 @@ const signUpWithEmailPassword = (email, password, username) => new Promise((reso
             const user = userCredential.user;
             user.updateProfile({
                 displayName: username,
+                photoURL: "https://raw.githubusercontent.com/bordoloicorp/blenderDownloads/main/default-user-icon-4.png"
             }).then(function () {
                 return resolve(user)
             }).catch(function (error) {
@@ -57,7 +58,10 @@ const signUpWithEmailPassword = (email, password, username) => new Promise((reso
             db.collection("users").doc(user.uid).set({
                 displayName: username,
                 email: email,
-                photoURL: user.photoURL
+                photoURL: "https://raw.githubusercontent.com/bordoloicorp/blenderDownloads/main/default-user-icon-4.png",
+                name: '',
+                bio: '',
+                url: ''
             })
             // ...
         })
@@ -93,12 +97,47 @@ const getUserData = (uid) => new Promise((resolve, reject) => {
         if (doc.exists) {
             return resolve(doc.data())
         } else {
-            
+
             return reject('No user found')
         }
     }).catch((error) => {
         return reject(error)
     });
 })
+
+const updateUserProfileData = (photoUrl, name, bio, url) => new Promise((resolve, reject) => {
+    var user = firebase.auth().currentUser
+    user.updateProfile({
+        photoURL: photoUrl
+    })
+    db.collection("users").doc(user.uid).set({
+        photoURL: photoUrl,
+        name: name,
+        bio: bio,
+        url: url
+    }, { merge: true }).then(() => { return resolve() })
+        .catch(err => { return reject(err) })
+})
+
+const signOut = () => new Promise((resolve, reject) => {
+    firebase.auth().signOut().then(() => {
+        return resolve()
+    }).catch((error) => {
+        return reject(error)
+    });
+})
+
+async function openProfilePage() {
+    var user = firebase.auth().currentUser
+    var id = await addNewTab(user.displayName)
+
+    const profilePage = document.createElement('profile-page')
+    profilePage.setAttribute('uid', user.uid)
+    profilePage.setAttribute('myId', id)
+    profilePage.id = id
+    profilePage.classList.add('tabcontent')
+    document.getElementById('main-contents').appendChild(profilePage)
+    setTabContent(id)
+}
 
 

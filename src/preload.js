@@ -1,9 +1,9 @@
-const { app,contextBridge, ipcRenderer } = require('electron');
+const { app, contextBridge, ipcRenderer } = require('electron');
 const { getProjectList, getId } = require('./js/db');
 
-const { 
+const {
     getProjectDetails,
-    writeProjectData, 
+    writeProjectData,
     dirWalk,
     createNewFile,
     download,
@@ -11,8 +11,8 @@ const {
     selectBlender,
     setUpSelector,
     addBlenderVersionsIntempSelector
- } = require('./js/helpers');
-const {getFirBConfig} = require('./js/firebase-helpers')
+} = require('./js/helpers');
+const { getFirBConfig } = require('./js/firebase-helpers')
 
 // MAIN API TO INTERACT WITH DIFFERENT WINDOWS
 contextBridge.exposeInMainWorld('BL', {
@@ -57,48 +57,49 @@ contextBridge.exposeInMainWorld('BL', {
     loadDirTree: (args) => {
         var element = document.getElementById(args[1])
         var parent = element.shadowRoot.getElementById("parentItem")
-        parent.innerHTML=''
+        parent.innerHTML = ''
         dirWalk(args[0], parent, function (err, results) {
             if (err) throw err;
         })
     },
-    createNewItem: (type,location,name,treeId,parentId)=>{
+    createNewItem: (type, location, name, treeId, parentId) => {
         var parent = document.getElementById(treeId).shadowRoot.getElementById(parentId)
-        createNewFile(type,location,name,parent,function(err, result){
-            if (err){
+        createNewFile(type, location, name, parent, function (err, result) {
+            if (err) {
                 console.log(err)
             }
         })
     },
-    downloadfile: (link,shadowId,type)=>{
+    downloadfile: (link, shadowId, type) => {
         var shadow = document.getElementById(shadowId).shadowRoot
-        ipcRenderer.invoke("get-user-data-path", ["downloads",'userData']).then((result)=>{
-            download(link,shadow,result[0],result[1],type)
+        ipcRenderer.invoke("get-user-data-path", ["downloads", 'userData']).then((result) => {
+            download(link, shadow, result[0], result[1], type)
         });
+        
     },
-    setupDownloadedBlenderCards: async ()=>{
+    setupDownloadedBlenderCards: async () => {
         const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
         const defBlender = await ipcRenderer.invoke("get-default-blender");
-        getBlenderExecutables(udpath,defBlender);
+        getBlenderExecutables(udpath, defBlender);
     },
-    selectDefaultBlender: async (location)=>{
+    selectDefaultBlender: async (location) => {
         const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
         selectBlender(udpath, location)
     },
-    setUpBlenderSelector: async (id)=>{
+    setUpBlenderSelector: async (id) => {
         const defBlender = await ipcRenderer.invoke("get-default-blender");
         const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
-        setUpSelector(udpath,defBlender,id);
+        setUpSelector(udpath, defBlender, id);
     },
-    createBlendVerSelector: async (treeId, treeitemId, selectorId, location,name)=>{
+    createBlendVerSelector: async (treeId, treeitemId, selectorId, location, name) => {
         console.log(selectorId);
-        
+
         const selector = document.getElementById(selectorId)
         const container = selector.shadowRoot.getElementById('blender-selector')
-        
+
         var treeitem = document.getElementById(treeId).shadowRoot.getElementById(treeitemId)
         const udpath = await ipcRenderer.invoke("get-user-data-path", ["userData"]);
-        addBlenderVersionsIntempSelector(udpath,container,location,name,treeitem)
+        addBlenderVersionsIntempSelector(udpath, container, location, name, treeitem)
     },
     getFirebaseConfigs: async () => await getFirBConfig()
 });

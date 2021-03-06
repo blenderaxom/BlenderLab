@@ -50,9 +50,30 @@
         box-shadow: inset 3px 3px 3px $dark-shadow-color, inset -3px -3px 3px $light-shadow-color;
     }
 }
-.btn-large {
-    padding: 0.8rem 2rem;
+
+.btn-outline {
+    margin-left: 20px;
+    padding: 5px 9px;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: $bg-light;
+    transition: $transition;
+    font-weight: bold;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+    font: 14px;
+
+    &:hover {
+        background-color: $btn-hover-color;
+    }
 }
+
+.btn-large {
+    padding: 10px 10px;
+}
+
 
 .btn-icon {
     padding: 0;
@@ -70,11 +91,22 @@
     &:hover{
         background-color: $btn-hover-color;
     }
+
+    &.border {
+        border: 1px solid $primary-color
+    }
 }
 .btn-icon-secondary{
     color: white;
     &:hover{
         background: rgba(255, 255, 255, 0.212);
+    }
+}
+.btn-icon-tertiary{
+    color: $light-dark-color;
+    &:hover{
+        color: rgb(78, 139, 175);
+        background: rgba(153, 214, 255, 0.123);
     }
 }
 

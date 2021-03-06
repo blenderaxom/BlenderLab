@@ -24,10 +24,50 @@
     src: URL('../fonts/Poppins-Regular.ttf');
     /*URL to font*/
 }
+
 @font-face {
-    font-family: 'monaco';
-    src: URL('../fonts/monaco.ttf');
+    font-family: 'Poppins';
+    /*a name to be used later*/
+    src: URL('../fonts/Poppins-Regular.ttf');
+    /*URL to font*/
 }
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: URL('../fonts/MaterialIconsRound-Regular.otf');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
 
 *,
 ::before,
@@ -64,7 +104,7 @@ body {
     background-color: $dark-bg;
     color: $light-text-color;
     transition: $transition;
-    margin: 4.5rem 0 0 6rem;
+    margin: 4rem 0 0 6rem;
     font-size: $normal-font-size;
     font-family: $font-family;
     &::-webkit-scrollbar {
@@ -77,14 +117,15 @@ body {
         border-radius: $border-radius;
         background-color: $light-dark-color;
     }
-    #main-contents{
+
+    #main-contents {
         padding: 20px;
     }
 }
 
 .newProjectWindowBody {
     background-color: $bg-light;
-    padding: 0 2rem;
+    padding: 0 1.7rem;
     user-select: none;
 }
 
@@ -100,7 +141,8 @@ body {
     width: 50px;
     height: 50px;
     animation: spin 2s linear infinite;
-    &.mini{
+
+    &.mini {
         position: relative;
         display: flex;
         justify-content: center;
@@ -120,9 +162,10 @@ body {
         transform: rotate(360deg);
     }
 }
+
 .bg {
     position: fixed;
-    top: 0;
+    top: 4.1rem;
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -131,4 +174,5 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }

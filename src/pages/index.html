@@ -6,7 +6,6 @@
   
   <title>BlenderLab v0.1</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <link href="../css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="../scripts/highlight.js/atom-one-dark-reasonable.css">
   <link rel="stylesheet" href="../scripts/toastr/toastr.min.css">
 </head>
@@ -31,23 +30,23 @@
         <div>
           <div class="nav-list">
             <a href="#" class="home nav-link" onclick="openPage(event, 'Home')" id="defaultOpen">
-              <i class="fas fa-home"></i>
+              <i class="material-icons md-24">home</i>
               <span class="link-text">Home</span>
             </a>
             <a href="#" class="projects nav-link" onclick="openPage(event, 'Projects')">
-              <i class="fas fa-folder-open"></i>
+              <i class="material-icons md-24">topic</i>
               <span class="link-text">Projects</span>
             </a>
             <a href="#" class="learn nav-link" onclick="openPage(event, 'Learn')">
-              <i class="fas fa-book"></i>
+              <i class="material-icons md-24">school</i>
               <span class="link-text">Learn</span>
             </a>
             <a href="#" class="blog nav-link" onclick="openPage(event, 'Blog')">
-              <i class="fas fa-blog"></i>
+              <i class="material-icons md-24">dashboard</i>
               <span class="link-text">Blog</span>
             </a>
             <a href="#" class="installs nav-link" onclick="openPage(event, 'Installs')">
-              <i class="fas fa-download"></i>
+              <i class="material-icons md-24">download</i>
               <span class="link-text">Installs</span>
             </a>
             <!-- <a href="#" class="hire nav-link" onclick="openPage(event, 'Hire')">
@@ -64,7 +63,7 @@
         <div class="bottomItems">
           <user-profile-btn id="sidebarProfileBtn"></user-profile-btn>
           <a href="#" class="btm-item nav-link" id="settingsBtn">
-            <i class="fas fa-cog"></i>
+            <i class="material-icons md-24">settings</i>
             <span class="link-text">Settings</span>
           </a>
         </div>
@@ -73,8 +72,8 @@
 
     <div id="Home" class="tabcontent">
       <div class="projectBtnContainer">
-        <button class="btn btn-primary" id="new-project-button">New Project</button>
-        <button class="btn btn-secondary" id="add-project-button">Add</button>
+        <button class="btn btn-primary btn-large" id="new-project-button">New Project</button>
+        <button class="btn btn-secondary btn-large" id="add-project-button">Add</button>
       </div>
 
       <div class="card project-list-container">
@@ -158,7 +157,7 @@
   <!-- <script src="../scripts/@editorjs/paragraph/bundle.js"></script> -->
 
   <script src="../js/configure_imps.js"></script>
-
+  <script src="../components/custom-menu.js"></script>
   <script src="../js/func.helpers.js"></script>
   <script src="../js/index.js"></script>
   <script src="../js/installs-page.js"></script>
@@ -175,6 +174,8 @@
   <script src="../components/auth-page.js"></script>
   <script src="../components/verification-page.js"></script>
   <script src="../components/profile_page.js"></script>
+  <script src="../components/custom-input.js"></script>
+  
 </body>
 
 </html>

@@ -2,10 +2,9 @@ const tempInput = document.createElement('template');
 tempInput.innerHTML =
     `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div id="bg"></div>
     <div id="container">
-        <i class="fas fa-folder" id="folderIcon"></i>
+        <i class="material-icons md-18" id="folderIcon">folder</i>
         <img src="../images/svg/blenderlogo.svg" class="svg-btn-icon" id="blendIcon">
         <div class="field-value"><input type="text" onfocus="this.select()" id="name"></div>
     </div>

@@ -1,9 +1,9 @@
 .tabbar {
     position: fixed;
-    top: 2rem;
-    // height: 2.6rem;
-    width: 91vw;
-    padding: 0px 5px;
+    top: 1.7rem;
+    width: 100%;
+    max-width: 91vw;
+    // padding: 0px 5px;
     background-color: $dark-bg;
     display: flex;
     justify-content: left;
@@ -12,29 +12,31 @@
     overflow: hidden;
     user-select: none;
     transition: $transition;
-    z-index: 100;
+    z-index: 1;
     white-space: nowrap;
     border-bottom: 2px solid $border-color;
     .tabbar-contents {
-        gap: 10px;
         display: flex;
         justify-content: left;
         align-items: center;
-        height: 2.3rem;
-        overflow-x: scroll;
-        margin-top: 0.3rem;
+        overflow-x: auto;
+        height: 100%;
+        // margin-top: 0.3rem;
         .tabbar-main {
-            border-radius: 20px;
-            padding: 3px 10px;
+            border-bottom: 2px solid transparent;
+            // border-radius: 20px;
+            padding: 7px 10px;
             color: $light-text-color;
             cursor: pointer;
             transition: $transition;
             text-decoration: none;
 
             &:hover {
+                background-color: $btn-hover-color;
                 color: $primary-color;}
 
             &.tab-active {
+                border-bottom: 3px solid $primary-color;
                 color: $primary-color;
                 font-weight: bold;
                 &:hover {
@@ -52,8 +54,9 @@
 
 
 .tabbar-item {
-    border-radius: 20px;
-    padding: 3px 10px;
+    border-bottom: 2px solid transparent;
+    // border-radius: 20px;
+    padding: 7px 10px;
     cursor: pointer;
     transition: $transition;
     width: fit-content;
@@ -63,6 +66,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
+    // border-bottom: 2px solid $border-color;
     .name {
         color: $light-text-color;
         text-decoration: none;
@@ -80,6 +84,7 @@
     }
 
     &:hover {
+        background-color: $btn-hover-color;
         .name {
             color: $primary-color;
         }
@@ -88,8 +93,8 @@
 
 }
 .tab-active {
-    background-color: $btn-hover-color;
     color: $primary-color;
+    border-bottom: 3px solid $primary-color;
     .name {
         color: $primary-color;
         font-weight: bold;

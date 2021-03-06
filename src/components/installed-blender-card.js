@@ -2,7 +2,6 @@ const blendinstalledCard = document.createElement('template');
 blendinstalledCard.innerHTML =
     `
     <link rel="stylesheet" href="../css/styles.css">
-    <link href="../css/all.css" rel="stylesheet">
     <div class="card installed-card">
       <div class="header" id="header"></div>
       <button class="btn btn-tertiary" id='defaultBtn'>Set as Default</button>

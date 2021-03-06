@@ -2,10 +2,12 @@ const templateCard = document.createElement('template');
 templateCard.innerHTML = 
 
 `<link rel="stylesheet" href="../css/styles.css">
-<link href="../css/all.css" rel="stylesheet">
 <div class="pc">
-    <div class="name-label" id="name"></div>
-    <div class="time-label" id="time"></div>
+    <div>
+        <div class="name-label" id="name"></div>
+        <div class="time-label" id="time"></div>
+    </div>    
+    <custom-popup n="btn-icon-tertiary"></custom-popup>
 </div>`
 
 class ProjectCard extends HTMLElement {
@@ -20,14 +22,15 @@ class ProjectCard extends HTMLElement {
         const location = this.getAttribute("location")
         const time = this.getAttribute("time")
 
+        const menu = this.shadowRoot.querySelector('custom-popup')
+        .querySelector('.dropdown-content')
+
         const nameElement = this.shadowRoot.getElementById("name")
         const timeElement = this.shadowRoot.getElementById("time")
-
         nameElement.innerHTML = name
         timeElement.innerHTML = time
 
         this.addEventListener('click', async function (event){
-            
             var id = await addNewTab(name)
             
             document.getElementById('main-contents').insertAdjacentHTML('afterbegin', `
@@ -36,6 +39,10 @@ class ProjectCard extends HTMLElement {
 
             setTabContent(id)
         })
+
+        makeCustomMenuItem(menu,'launch',"Open", ()=>{this.click()})
+        makeCustomMenuItem(menu,'folder_open',"Open in file explorer", ()=>{})
+        makeCustomMenuItem(menu,'delete',"Delete", ()=>{})
     }
 }
 
