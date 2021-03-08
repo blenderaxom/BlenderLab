@@ -72,18 +72,6 @@ class AuthPage extends HTMLElement {
         loginBtn.innerText = 'Login'
         signupBtn.innerText = 'Sign Up'
 
-        function showLoader(element, id){
-            var div = document.createElement('div')
-            div.classList.add('loader', 'mini')
-            div.id = id
-            element.append(div)
-        }
-        const removeLoader=(id)=> {
-            var loader = this.shadowRoot.getElementById(id)
-            if (loader!=null)
-                loader.remove();
-        }
-
         signUpFormSelector.onclick = e => {
             formController.style.transform = "translate(-180px,0)"
             loginFormSelector.classList.remove('active-btn')
@@ -108,7 +96,7 @@ class AuthPage extends HTMLElement {
                 console.log('logged successfully');
                 console.log(res);
                 loginBtn.innerText = 'Login'
-                removeLoader('login-loader')
+                removeLoader(this.shadowRoot,'login-loader')
                 this.remove()
                 toastr.success(`Hi ${res.displayName}, Welcome back!`,'Login Successful')
             }).catch(err=>{
@@ -116,7 +104,7 @@ class AuthPage extends HTMLElement {
                 toastr.error(`Ooh, ${err.code}`)
                 console.log(err);
                 loginBtn.innerText = 'Login'
-                removeLoader('login-loader')
+                removeLoader(this.shadowRoot,'login-loader')
             })
         })
         

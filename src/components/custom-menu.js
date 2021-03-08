@@ -25,9 +25,6 @@ class CustomPopup extends HTMLElement {
 
         moreBtn.addEventListener('click', e => {
             e.stopPropagation()
-            setTimeout(() => {
-                dropDownContent.scrollIntoView();
-            }, 50)
             bgCont.style.display = 'block'
             dropDownContent.style.display = 'block'
         })

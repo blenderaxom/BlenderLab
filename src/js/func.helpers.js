@@ -1,8 +1,40 @@
 var tools = {
     header: Header,
+    delimiter: Delimiter,
     Marker: {
         class: Marker,
         shortcut: 'CMD+SHIFT+M',
+    },
+    warning: Warning,
+    checklist: {
+        class: Checklist,
+        inlineToolbar: true,
+    },
+    image: {
+        class: ImageTool,
+        config: {
+            uploader: {
+                uploadByFile(file) {
+                    return uploadImageFromFile(file)
+                        .then(link => {
+                            return {
+                                success: 1,
+                                file: { url: link }
+                            }
+                        })
+
+                },
+                uploadByUrl(url) {
+                    return uploadImageFromUrl(url)
+                        .then(link => {
+                            return {
+                                success: 1,
+                                file: { url: link }
+                            }
+                        })
+                }
+            }
+        }
     },
     inlineCode: InlineCode,
     underline: Underline,
@@ -51,7 +83,6 @@ function setUpEditorWithBlock(id, block) {
         data: block,
         onReady: () => {
             new Undo({ editor });
-            new DragDrop(editor);
         },
         tools: tools
     });
@@ -86,18 +117,75 @@ function saveAndRender(editor, element) {
 
 
 function parseEditorBlocks(output) {
+    console.log(output);
     const customParsers = {
-        paragraph: function (data, config) {
-            if (data.alignment == "center") {
-                return `<p style="text-align:center;">${data.text}</p>`
-            } else if (data.alignment == "left") {
-                return `<p style="text-align:left;">${data.text}</p>`
-            } else {
-                return `<p style="text-align:right;">${data.text}</p>`
-            }
+        delimiter: function (data, config) {
+            return `<div class="ce-delimiter cdx-block"></div>`
         },
+        image: function (data,config) {
+            var classes = 'cdx-block image-tool image-tool--filled'
+            if (data.withBorder) classes += ' image-tool--withBorder'
+            if (data.withBackground) classes += ' image-tool--withBackground'
+            if (data.stretched) classes += ' image-tool--stretched'
+
+            return `<div class="${classes}">
+                        <div class="image-tool__image">
+                            <div class="image-tool__preloader"></div>
+                            <img class="image-tool__image-picture" src="${data.file.url}">
+                        </div>
+                        <div class="image__caption">${data.caption}</div>
+                    </div>`
+        },
+        warning: function(data,config) {
+            return `<div class="block-warning">
+                        <div class="block-warning__icon">
+                        ☝️
+                        </div>
+                            <div class="block-warning__title">
+                            ${data.title}
+                        </div>
+                        <div class="block-warning__message">${data.message}</div>
+                    </div>`
+        },
+        checklist: (data, cofig) => {
+            var el = ''
+            data.items.forEach(l => {
+                if (l.checked == true) {
+                     el += `<div class="cdx-checklist__item cdx-checklist__item--checked">
+                                <span class="cdx-checklist__item-checkbox">
+                                    <i class="material-icons md-18">done</i>
+                                </span>
+                                <div class="cdx-checklist__item-text" contenteditable="false">
+                                    ${l.text}
+                                </div>
+                            </div>` 
+                } else {
+                    el += `<div class="cdx-checklist__item">
+                                <span class="cdx-checklist__item-checkbox"></span>
+                                <div class="cdx-checklist__item-text" contenteditable="false">
+                                    ${l.text}
+                                </div>
+                            </div>`   
+                }
+            }
+
+            )
+            return el
+        }
     }
-    const parser = new edjsParser();
+    const parser = new edjsParser(undefined, customParsers);
     return parser.parse(output);
 }
 
+
+function showLoader(element, id) {
+    var div = document.createElement('div')
+    div.classList.add('loader', 'mini')
+    div.id = id
+    element.append(div)
+}
+const removeLoader = (doc, id) => {
+    var loader = doc.getElementById(id)
+    if (loader != null)
+        loader.remove();
+}

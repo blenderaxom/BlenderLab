@@ -32,9 +32,8 @@ class ProjectCard extends HTMLElement {
 
         this.addEventListener('click', async function (event){
             var id = await addNewTab(name)
-            
             document.getElementById('main-contents').insertAdjacentHTML('afterbegin', `
-            <project-page myId="${id}" location="${location}">
+            <project-page id="${id}" location="${location}">
             </project-page>`)
 
             setTabContent(id)

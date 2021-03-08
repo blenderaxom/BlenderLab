@@ -1,6 +1,5 @@
 const { app, contextBridge, ipcRenderer } = require('electron');
 const { getProjectList, getId } = require('./js/db');
-
 const {
     getProjectDetails,
     writeProjectData,
@@ -19,6 +18,10 @@ contextBridge.exposeInMainWorld('BL', {
     openFolder: async () => {
         const result = await ipcRenderer.invoke("open-folder");
         return result;
+    },
+    selectImageFile: async () => {
+        const path = await ipcRenderer.invoke('select-image')
+        return path;
     },
     newProjectWindow: () => {
         ipcRenderer.invoke("open-new-project-window");

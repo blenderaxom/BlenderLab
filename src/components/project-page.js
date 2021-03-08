@@ -2,7 +2,6 @@ class ProjectPageTemplate extends HTMLElement {
     constructor() {
         super();
         this.classList.add("tabcontent")
-        this.id = this.getAttribute("myId")
         // const title = this.getAttribute("title")
         const location = this.getAttribute("location")
         

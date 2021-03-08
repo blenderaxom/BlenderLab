@@ -4,6 +4,8 @@ const { electron } = require('process');
 const { v4: uuidv4 } = require("uuid");
 const fs = require('fs');
 const { addProjectToDatabase } = require('./js/db');
+const { pathToFileURL } = require('url');
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
@@ -269,4 +271,19 @@ ipcMain.handle('set-progress', async(event,args)=>{
   } else {
     mainWindow.setProgressBar(-1)
   }
+})
+
+ipcMain.handle('select-image', async (event,args)=>{
+  const curWin = CurWindow()
+  const result = await dialog.showOpenDialog(curWin, {
+    properties: ['openFile'],
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'jpeg', 'png'] }
+    ]
+  });
+  if (!result.canceled) {
+    filePath = result.filePaths
+    return [pathToFileURL(filePath[0]).href]
+  }
+  return undefined
 })

@@ -42,3 +42,14 @@ const makeCustomMenuItem = (menu, icon, menuName, callback) => new Promise((reso
     }
 
 })
+
+
+async function setUpCropper(element) {
+    var croppr = new Croppr(element, {
+        aspectRatio: 1,
+        startSize: [80, 80, '%'],
+    });
+
+    return croppr
+}
+

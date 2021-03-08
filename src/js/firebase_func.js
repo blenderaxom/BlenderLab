@@ -1,4 +1,5 @@
 let db;
+let storage;
 var userData = {};
 let userGlobal = ObservableSlim.create(userData, true, function (changes) { });
 
@@ -7,6 +8,7 @@ const config = async () => {
     var e = await BL.getFirebaseConfigs()
     firebase.initializeApp(e);
     db = firebase.firestore();
+    storage = firebase.storage();
     firebase.auth().onAuthStateChanged(function (user) {
         unListenProfileData()
         if (user) {
@@ -43,13 +45,15 @@ const loginWithEmailPassword = (email, password) => new Promise((resolve, reject
 })
 
 const signUpWithEmailPassword = (email, password, username) => new Promise((resolve, reject) => {
+
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
+            var photoURL = "https://raw.githubusercontent.com/bordoloicorp/blenderDownloads/main/default-user-icon-4.png"
             user.updateProfile({
                 displayName: username,
-                photoURL: "https://raw.githubusercontent.com/bordoloicorp/blenderDownloads/main/default-user-icon-4.png"
+                photoURL: photoURL
             }).then(function () {
                 return resolve(user)
             }).catch(function (error) {
@@ -58,8 +62,7 @@ const signUpWithEmailPassword = (email, password, username) => new Promise((reso
             db.collection("users").doc(user.uid).set({
                 displayName: username,
                 email: email,
-                photoURL: "https://raw.githubusercontent.com/bordoloicorp/blenderDownloads/main/default-user-icon-4.png",
-                name: '',
+                photoURL: photoURL,
                 bio: '',
                 url: ''
             })
@@ -129,15 +132,61 @@ const signOut = () => new Promise((resolve, reject) => {
 
 async function openProfilePage() {
     var user = firebase.auth().currentUser
-    var id = await addNewTab(user.displayName)
-
+    
     const profilePage = document.createElement('profile-page')
     profilePage.setAttribute('uid', user.uid)
-    profilePage.setAttribute('myId', id)
-    profilePage.id = id
-    profilePage.classList.add('tabcontent')
-    document.getElementById('main-contents').appendChild(profilePage)
-    setTabContent(id)
+    addTab(user.displayName,profilePage)
 }
 
+const uploadFileToStorage = (folder,file,filename)=> new Promise((resolve,reject)=>{
+    var storageRef = storage.ref()
+    var uploadTask = storageRef.child(`${folder}/${filename}`).put(file);
+    console.log(file);
+    uploadTask.on('state_changed',
+        (snapshot) => {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+            }
+        },
+        (error) => {
+            return reject(error)
+        },
+        () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                console.log('File available at', downloadURL);
+                return resolve(downloadURL)
+            });
+        }
+    );
+})
+
+
+const uploadImageFromFile = (file) => new Promise(async(resolve,reject)=>{
+    var id = await BL.getUniqueId()
+    uploadFileToStorage('raw-images',file, `${id}.png`)
+    .then(link=>{return resolve(link)})
+    .catch(err=>{return reject(err)})
+})
+
+const uploadImageFromUrl = (url) => new Promise(async (resolve,reject)=>{
+    var id = await BL.getUniqueId()
+    let response = await fetch(url);
+    let data = await response.blob();
+    let file = new File([data], `${id}.png`);
+
+    uploadFileToStorage('raw-images',file, `${id}.png`)
+    .then(link=>{return resolve(link)})
+    .catch(err=>{return reject(err)})
+})
 

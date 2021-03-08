@@ -61,7 +61,7 @@ profilePage.innerHTML =
                         <div class="pic-container medium">
                             <img id="editProfilePic" src="#" alt="Avatar" class="avatar medium profilepic">
                             <div class="changeDPContainer">
-                                <button class="btn btn-icon btn-icon-secondary">
+                                <button id="imageSelectorBtn" class="btn btn-icon btn-icon-secondary">
                                     <i class="material-icons md-24">add_a_photo</i>
                                 </button>
                             </div>
@@ -100,26 +100,29 @@ class ProfilePage extends HTMLElement {
             const popUpEditProfile = this.shadowRoot.querySelector('.editProfilePopup')
             const editProfileBtn = this.shadowRoot.getElementById('edit-profile-btn')
             const closePopUpBtn = this.shadowRoot.getElementById('closePopUpBtn')
+            const imageSelectorBtn = this.shadowRoot.getElementById('imageSelectorBtn')
 
             const editName = this.shadowRoot.getElementById('editName')
-            .shadowRoot.querySelector('input')
+                .shadowRoot.querySelector('input')
             const editBio = this.shadowRoot.getElementById('editBio')
-            .shadowRoot.querySelector('textarea')
+                .shadowRoot.querySelector('textarea')
             const editUrl = this.shadowRoot.getElementById('editUrl')
-            .shadowRoot.querySelector('input')
+                .shadowRoot.querySelector('input')
             const editProfilePic = this.shadowRoot.getElementById('editProfilePic')
             const saveEditBtn = this.shadowRoot.getElementById('saveEditBtn')
 
             const menu = this.shadowRoot.querySelector('custom-popup')
                 .querySelector('.dropdown-content')
-            
+
+            let uploadedImagePath = undefined;
+
 
             getUserData(uid)
                 .then(data => {
                     username.innerText = data.displayName
                     fullName.innerText = data.name
                     bio.innerText = data.bio
-                    
+
                     editName.value = data.name
                     editBio.value = data.bio
                     editUrl.value = data.url
@@ -128,14 +131,15 @@ class ProfilePage extends HTMLElement {
                         link.href = data.url
                         link.innerText = data.url
                         this.shadowRoot.querySelector('.link')
-                        .querySelector('i').style.display = 'block'
+                            .querySelector('i').style.display = 'block'
                     } else {
                         link.style.display = 'none'
                         this.shadowRoot.querySelector('.link')
-                        .querySelector('i').style.display = 'none'
+                            .querySelector('i').style.display = 'none'
                     }
                     if (data.photoURL != null) {
                         defaultAvatar.style.display = 'none'
+                        uploadedImagePath = data.photoURL
                         avatarContainers.forEach(l => {
                             l.src = data.photoURL
                             l.style.display = 'block'
@@ -157,22 +161,62 @@ class ProfilePage extends HTMLElement {
                 popUpEditProfile.style.display = "none"
             })
 
-            saveEditBtn.addEventListener('click',e=>{
+            saveEditBtn.addEventListener('click', e => {
                 console.log(editName.value);
                 updateUserProfileData(
-                    editProfilePic.src, editName.value, editBio.value, editUrl.value
-                ).then(()=>{
-                    closeCurrentTab().then(()=>{
+                    uploadedImagePath, editName.value, editBio.value, editUrl.value
+                ).then(() => {
+                    closeCurrentTab().then(() => {
                         openProfilePage()
                     })
                 })
-                .catch(err=>console.log(err))
+                    .catch(err => console.log(err))
+            })
+
+            imageSelectorBtn.addEventListener('click', async e => {
+                imageSelectorBtn.disabled = true
+                imageSelectorBtn.querySelector('i').style.display = "none"
+                showLoader(imageSelectorBtn, 'image-loader')
+
+                var imagePath = await BL.selectImageFile()
+
+                if (imagePath != undefined) {
+                    editProfilePic.src = imagePath[0];
+                    toastr.info('Uploading Image...')
+                    uploadImageFromUrl(imagePath)
+                        .then(downloadLink => {
+                            toastr.success('Image Uploaded successfully!')
+                            uploadedImagePath = downloadLink;
+                            editProfilePic.src = downloadLink;
+
+                            imageSelectorBtn.disabled = false
+                            imageSelectorBtn.querySelector('i').style.display = "block"
+                            removeLoader(this.shadowRoot, 'image-loader')
+                        }).catch(err => {
+                            console.log(err);
+                            toastr.error('Oops, image upload failed!')
+                            editProfilePic.src = uploadedImagePath
+
+                            imageSelectorBtn.disabled = false
+                            imageSelectorBtn.querySelector('i').style.display = "block"
+                            removeLoader(this.shadowRoot, 'image-loader')
+                        })
+                } else {
+                    imageSelectorBtn.disabled = false
+                    imageSelectorBtn.querySelector('i').style.display = "block"
+                    removeLoader(this.shadowRoot, 'image-loader')
+                    toastr.error('There was an error selecting the file.')
+                }
+
             })
 
             makeCustomMenuItem(menu, "login", "Log out", () => {
-                signOut().then(()=>{
+                signOut().then(() => {
                     toastr.success('Sign out successful!')
                     closeCurrentTab()
+                }).catch(err => {
+                    console.log(err);
+                    toastr.error('There was an error signing out.')
                 })
             })
             makeCustomMenuItem(menu, "admin_panel_settings", "Account settings", () => { })

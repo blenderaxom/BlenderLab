@@ -53,6 +53,14 @@ async function addNewTab(name) {
     return id
 }
 
+async function addTab(name, page) {
+    var id = await addNewTab(name)
+    page.id= id
+    page.classList.add('tabcontent')
+    document.getElementById('main-contents').append(page)
+    setTabContent(id) 
+}
+
 // Hide all elements and show the current tab content in index page
 function setTabContent(id) {
     // Declare all variables

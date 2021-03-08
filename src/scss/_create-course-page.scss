@@ -1,0 +1,11 @@
+.content-container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .createCard{
+        background-color: blanchedalmond;
+        height: 300px;
+        width: 600px;
+    }
+}
