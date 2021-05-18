@@ -1,5 +1,4 @@
-![create project|690x402](upload://fQgdataB6RMR3PWn6GVbWslQoEs.png)  
-
+#BlenderLab
 ### Create, share and explore Blender projects created by other Blender users.
 
 Features in development-
